@@ -1,0 +1,6 @@
+.bbb-banner { width: 100%; }
+.bbb-banner > div { min-width: 0; }
+.bbb-banner__actions { display: flex; flex-wrap: wrap; gap: var(--bbb-space-2); margin-top: var(--bbb-space-3); }
+.bbb-banner { flex-wrap: wrap; }
+.bbb-banner > div { flex: 1 1 var(--bbb-space-20); overflow-wrap: anywhere; }
+.bbb-banner__actions .bbb-button { flex-wrap: wrap; }

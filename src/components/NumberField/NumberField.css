@@ -1,0 +1,6 @@
+.bbb-number-field { container-type: inline-size; }
+@container (max-width: 16rem) {
+  .bbb-number-field .bbb-field__control { flex-wrap: wrap; }
+  .bbb-number-field .bbb-field__control > input { flex-basis: 100%; }
+  .bbb-number-field .bbb-field__control > .bbb-button { flex: 1; width: auto; padding-inline: 0; }
+}

@@ -1,0 +1,15 @@
+.consumer-check,
+.consumer-check form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-4);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.consumer-check {
+  padding: var(--bbb-space-4);
+}
+.consumer-check h1,
+.consumer-check p {
+  margin: 0;
+}

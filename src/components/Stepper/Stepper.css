@@ -1,0 +1,40 @@
+.bbb-stepper {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bbb-space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bbb-stepper li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  display: flex;
+  align-items: center;
+  gap: var(--bbb-space-2);
+  flex: 1 1 auto;
+  font-size: var(--bbb-font-size-xs);
+  color: var(--bbb-color-text-secondary);
+}
+.bbb-stepper__marker {
+  display: grid;
+  place-items: center;
+  width: var(--bbb-space-8);
+  height: var(--bbb-space-8);
+  flex-shrink: 0;
+  border-radius: var(--bbb-radius-full);
+  background: var(--bbb-color-surface-muted);
+}
+.bbb-stepper li[aria-current] {
+  color: var(--bbb-color-accent-text);
+  font-weight: var(--bbb-font-weight-semibold);
+}
+.bbb-stepper li[aria-current] .bbb-stepper__marker {
+  background: var(--bbb-color-accent);
+  color: var(--bbb-color-on-accent);
+}
+.bbb-stepper li[data-complete] .bbb-stepper__marker {
+  color: var(--bbb-color-supporting-hover);
+  background: var(--bbb-color-supporting-subtle);
+}

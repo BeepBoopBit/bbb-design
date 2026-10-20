@@ -1,0 +1,7 @@
+.bbb-workspace-switcher { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--bbb-space-2); }
+.bbb-workspace-switcher .bbb-select__value { white-space: normal; overflow-wrap: anywhere; }
+.bbb-workspace-switcher__actions { display: flex; flex-wrap: wrap; gap: var(--bbb-space-2); }
+
+.bbb-workspace-switcher__list { display: grid; gap: var(--bbb-space-2); }
+.bbb-workspace-switcher__list .bbb-button { justify-content: flex-start; text-align: start; }
+.bbb-workspace-switcher__list [aria-pressed="true"] { color: var(--bbb-color-accent-text); background: var(--bbb-color-accent-subtle); }

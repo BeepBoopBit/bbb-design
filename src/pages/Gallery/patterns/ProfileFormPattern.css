@@ -1,0 +1,92 @@
+.gallery-card__preview.gallery-card__preview--profile-form {
+  padding: var(--bbb-space-12);
+  background: var(--bbb-color-surface);
+}
+.profile-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-6);
+  width: min(100%, var(--bbb-form-preview-width));
+}
+.profile-form__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bbb-space-4);
+  margin-bottom: var(--bbb-space-2);
+}
+.profile-form__heading {
+  flex: 1;
+}
+.profile-form__header h4 {
+  margin: 0;
+  color: var(--bbb-color-text);
+  font-size: var(--bbb-font-size-xl);
+  font-weight: var(--bbb-font-weight-semibold);
+  letter-spacing: var(--bbb-letter-spacing-tight);
+}
+.profile-form__header p {
+  margin: var(--bbb-space-1) 0 0;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-md);
+}
+.profile-form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--bbb-space-3);
+}
+.profile-form__full-width {
+  grid-column: 1 / -1;
+}
+.profile-form__preference {
+  padding-inline: var(--bbb-space-1);
+}
+.profile-form__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--bbb-space-4);
+  padding-top: var(--bbb-space-5);
+  border-top: var(--bbb-border-width) solid var(--bbb-color-border);
+}
+.profile-form__footer p {
+  flex: 1;
+  margin: 0;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-xs);
+}
+.profile-form__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--bbb-space-2);
+}
+.profile-form__actions .bbb-button--ghost {
+  color: var(--bbb-color-text-secondary);
+}
+
+@media (max-width: 48rem) {
+  .gallery-card__preview.gallery-card__preview--profile-form {
+    padding: var(--bbb-space-6);
+  }
+  .profile-form__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .profile-form__footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .profile-form__actions {
+    flex-wrap: wrap;
+  }
+  .profile-form__actions .bbb-button {
+    flex: 1 0 auto;
+    max-width: 100%;
+  }
+}
+@container gallery-content (max-width: 36rem) {
+  .gallery-card__preview.gallery-card__preview--profile-form {
+    padding: var(--bbb-space-2);
+  }
+}

@@ -1,0 +1,3 @@
+/* Component captures exclude surrounding sticky Gallery chrome. No component
+   styles are changed; full element captures retain their complete top edge. */
+.gallery-topbar, .gallery-skip-link { visibility: hidden; }

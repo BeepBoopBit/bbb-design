@@ -1,0 +1,47 @@
+.bbb-date-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+  padding-block: var(--bbb-space-half);
+  font-size: var(--bbb-font-size-base);
+}
+.bbb-date-segment {
+  padding-inline: var(--bbb-space-half);
+  border-radius: var(--bbb-choice-radius);
+  font-variant-numeric: tabular-nums;
+  outline: none;
+}
+.bbb-date-segment[data-type='literal'] {
+  padding: 0;
+}
+.bbb-date-segment[data-placeholder] {
+  color: var(--bbb-color-text-muted);
+}
+.bbb-date-segment:focus {
+  background: var(--bbb-color-supporting-subtle);
+  color: var(--bbb-color-supporting-hover);
+  box-shadow: inset 0 0 0 var(--bbb-border-width) var(--bbb-color-focus);
+}
+.bbb-date-picker[data-disabled] {
+  opacity: var(--bbb-opacity-disabled);
+}
+.bbb-date-picker[data-invalid] .bbb-field__surface {
+  --bbb-field-stroke: var(--bbb-color-danger);
+}
+.bbb-date-range__values {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bbb-space-2);
+  flex: 1;
+  min-width: 0;
+}
+.bbb-date-range__values .bbb-date-input {
+  flex: 0 1 auto;
+}
+.bbb-calendar-dialog {
+  outline: none;
+  max-width: 100%;
+}

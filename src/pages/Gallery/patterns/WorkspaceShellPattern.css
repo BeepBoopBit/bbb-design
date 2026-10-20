@@ -1,0 +1,147 @@
+.gallery-card__preview.gallery-card__preview--workspace-shell,
+.gallery-card__preview.gallery-card__preview--sidebar-dropdowns {
+  container: workspace-preview / inline-size;
+  padding: 0;
+  overflow: clip;
+}
+.workspace-shell {
+  display: grid;
+  grid-template-columns: var(--bbb-sidebar-width) minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
+  min-height: var(--bbb-workspace-preview-height);
+  background: var(--bbb-color-canvas);
+  transition: grid-template-columns var(--bbb-duration-medium) var(--bbb-easing-standard);
+}
+.workspace-shell[data-sidebar-collapsed] {
+  grid-template-columns: var(--bbb-sidebar-rail-width) minmax(0, 1fr);
+}
+.workspace-shell__sidebar-track {
+  grid-row: 2;
+  min-width: 0;
+  overflow: hidden;
+}
+.workspace-shell__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bbb-space-8);
+  padding: var(--bbb-space-4) var(--bbb-space-3);
+  border-inline-end: var(--bbb-border-width) solid var(--bbb-color-border);
+  background: var(--bbb-color-surface-inset);
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+}
+.workspace-shell__help { margin-top: auto; }
+.workspace-shell__main {
+  min-width: 0;
+}
+.workspace-shell__topbar {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  min-height: calc(var(--bbb-control-height) + var(--bbb-space-8) + var(--bbb-border-width));
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bbb-space-3);
+  padding: var(--bbb-space-4) var(--bbb-space-6);
+  border-bottom: var(--bbb-border-width) solid var(--bbb-color-border);
+  background: var(--bbb-color-surface-glass);
+}
+.workspace-shell__name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-sm);
+}
+.workspace-shell__mobile-menu {
+  display: none;
+}
+.workspace-shell__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-6);
+  padding: var(--bbb-space-6);
+}
+.workspace-content,
+.workspace-details-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-5);
+}
+.workspace-content__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.workspace-content__list > li + li,
+.workspace-project-details > * + * {
+  border-top: var(--bbb-border-width) solid var(--bbb-color-border);
+}
+.workspace-shell__status {
+  margin: 0;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-xs);
+  overflow-wrap: anywhere;
+}
+@container workspace-preview (max-width: 48rem) {
+  .workspace-shell,
+  .workspace-shell[data-sidebar-collapsed] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .workspace-shell__desktop-toggle,
+  .workspace-shell__sidebar-track {
+    display: none;
+  }
+  .workspace-shell__mobile-menu {
+    display: block;
+  }
+  .workspace-shell__topbar,
+  .workspace-shell__content {
+    padding: var(--bbb-space-4);
+  }
+}
+
+.sidebar-dropdowns-pattern {
+  width: 100%;
+  min-width: 0;
+}
+.sidebar-dropdowns-pattern__controls {
+  display: flex;
+  padding: var(--bbb-space-3) var(--bbb-space-4);
+  border-block-end: var(--bbb-border-width) solid var(--bbb-color-border);
+  background: var(--bbb-color-surface);
+}
+
+.workspace-shell { grid-template-rows: auto 1fr; }
+
+@container workspace-preview (max-width: 36rem) {
+  .workspace-shell__topbar { padding: var(--bbb-space-2); gap: var(--bbb-space-1); justify-content: space-between; }
+  .workspace-shell__name,
+  .workspace-account-trigger > span:not(.bbb-avatar),
+  .workspace-account-trigger > .bbb-icon { display: none; }
+  .workspace-account-trigger { padding: var(--bbb-space-1); }
+}
+
+.workspace-shell__mobile-brand { display: none; }
+@container workspace-preview (width > 48rem) {
+  .workspace-shell[data-branded] .workspace-shell__topbar {
+    padding: 0 var(--bbb-space-6) 0 0;
+    min-height: var(--bbb-shell-header-height);
+  }
+}
+@container workspace-preview (max-width: 48rem) {
+  .workspace-shell[data-branded] .workspace-shell__name { display: none; }
+  .workspace-shell__mobile-brand { display: flex; flex: 1; min-width: 0; }
+}
+@container workspace-preview (max-width: 24rem) {
+  .workspace-shell__mobile-brand { flex-basis: 100%; order: -1; }
+}
+
+.workspace-shell-preview__variants .bbb-filters__option {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  flex: 1 1 auto;
+}

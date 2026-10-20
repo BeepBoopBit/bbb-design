@@ -1,0 +1,26 @@
+.bbb-checkbox__box {
+  border-radius: var(--bbb-choice-radius);
+}
+.bbb-checkbox__box .bbb-icon {
+  opacity: var(--bbb-opacity-hidden);
+  transform: scale(var(--bbb-choice-mark-scale));
+  transition:
+    opacity var(--bbb-duration-fast) var(--bbb-easing-standard),
+    transform var(--bbb-duration-medium) var(--bbb-easing-standard);
+}
+.bbb-checkbox:is([data-selected], [data-indeterminate]) .bbb-icon {
+  opacity: var(--bbb-opacity-visible);
+  transform: scale(1);
+}
+.bbb-checkbox__copy {
+  display: grid;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  gap: var(--bbb-space-half);
+  font-weight: var(--bbb-font-weight-medium);
+}
+.bbb-checkbox__description {
+  font-size: var(--bbb-font-size-xs);
+  font-weight: var(--bbb-font-weight-regular);
+  color: var(--bbb-color-text-secondary);
+}

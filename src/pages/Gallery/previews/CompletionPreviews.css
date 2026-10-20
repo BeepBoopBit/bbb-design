@@ -1,0 +1,13 @@
+.locale-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-4);
+  padding: var(--bbb-space-5);
+  border: var(--bbb-border-width) solid var(--bbb-color-border);
+  border-radius: var(--bbb-radius-lg);
+  background: var(--bbb-color-surface);
+  min-width: 0;
+}
+.internationalization-preview { max-width: var(--bbb-pattern-width); }
+.content-preview__example { min-width: 0; padding: var(--bbb-space-4); border-radius: var(--bbb-radius-md); background: var(--bbb-color-surface-muted); }
+.content-preview__truncated { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }

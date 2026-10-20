@@ -1,0 +1,36 @@
+.bbb-brand-logo {
+  display: inline-block;
+  max-width: 100%;
+  width: max-content;
+  color: var(--bbb-color-text);
+  font-family: var(--bbb-font-wordmark);
+  font-size: var(--bbb-brand-size);
+  font-weight: var(--bbb-font-weight-bold);
+  line-height: var(--bbb-line-height-tight);
+  letter-spacing: var(--bbb-letter-spacing-tight);
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.bbb-brand-logo[data-wordmark] {
+  height: calc(var(--bbb-brand-size) * var(--bbb-line-height-tight) * var(--bbb-wordmark-fit, 1));
+  overflow: clip;
+  vertical-align: top;
+}
+.bbb-brand-logo__wordmark {
+  display: inline-block;
+  transform: scale(var(--bbb-wordmark-fit, 1));
+  transform-origin: left top;
+}
+.bbb-brand-logo__suffix {
+  color: var(--bbb-color-accent);
+  font-size: var(--bbb-brand-dot-size);
+  line-height: 0;
+}
+.bbb-brand-logo img {
+  display: block;
+  max-width: 100%;
+  height: var(--bbb-brand-size);
+  object-fit: contain;
+  object-position: left center;
+}

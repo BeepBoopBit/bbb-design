@@ -1,0 +1,15 @@
+.bbb-settings-section > .bbb-card__body {
+  padding: 0;
+}
+.bbb-settings-section > .bbb-card__body > * {
+  margin: 0;
+  padding: var(--bbb-space-4) var(--bbb-space-5);
+  border-radius: 0;
+}
+.bbb-settings-section > .bbb-card__body > * + * {
+  border-top: var(--bbb-border-width) solid var(--bbb-color-border);
+}
+.bbb-settings-section > .bbb-card__body > :last-child {
+  border-end-start-radius: var(--bbb-radius-xl);
+  border-end-end-radius: var(--bbb-radius-xl);
+}

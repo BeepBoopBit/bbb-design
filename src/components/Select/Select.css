@@ -1,0 +1,44 @@
+.bbb-select .bbb-field__surface {
+  padding-inline-end: var(--bbb-space-10);
+  cursor: pointer;
+}
+.bbb-select .bbb-select__trigger {
+  justify-content: flex-start;
+  text-align: start;
+  font-weight: var(--bbb-font-weight-regular);
+  transform: none;
+}
+/* Keep the entire field on the native trigger's pointer and focus path. */
+.bbb-select__trigger::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bbb-field-current-radius);
+}
+.bbb-select__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bbb-select__value[data-placeholder] {
+  color: var(--bbb-color-text-muted);
+}
+.bbb-select__trigger > .bbb-icon {
+  position: absolute;
+  inset-inline-end: var(--bbb-space-4);
+  top: 50%;
+  /* Center independently so opening rotation cannot reverse the offset. */
+  translate: 0 -50%;
+  color: var(--bbb-color-text-secondary);
+  transition: rotate var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-select[data-open] .bbb-select__trigger > .bbb-icon {
+  rotate: var(--bbb-half-turn);
+}
+.bbb-select__popover {
+  width: var(--trigger-width);
+}
+.bbb-select .bbb-select__trigger:hover:not(:disabled) {
+  background: var(--bbb-color-transparent);
+}

@@ -1,0 +1,88 @@
+.bbb-slider {
+  display: grid;
+  gap: var(--bbb-space-2);
+  width: 100%;
+  min-width: 0;
+}
+.bbb-slider__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--bbb-space-2);
+  font-size: var(--bbb-font-size-sm);
+  font-weight: var(--bbb-font-weight-medium);
+}
+.bbb-slider__heading output {
+  font-variant-numeric: tabular-nums;
+  color: var(--bbb-color-text-secondary);
+}
+.bbb-slider__track {
+  position: relative;
+  height: var(--bbb-control-height);
+  margin-inline: calc(var(--bbb-slider-thumb-size) / 2);
+}
+.bbb-slider__track::before,
+.bbb-slider__fill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: var(--bbb-radius-full);
+}
+.bbb-slider__track::before {
+  content: '';
+  width: 100%;
+  height: var(--bbb-slider-track-height);
+  background: var(--bbb-color-border-strong);
+}
+.bbb-slider__fill {
+  background: var(--bbb-color-accent);
+}
+.bbb-slider__thumb {
+  top: 50%;
+  width: var(--bbb-slider-thumb-size);
+  height: var(--bbb-slider-thumb-size);
+  border: var(--bbb-border-width) solid var(--bbb-color-border-strong);
+  border-radius: var(--bbb-radius-full);
+  background: var(--bbb-color-surface);
+  box-shadow: var(--bbb-shadow-control);
+  /* Keep React Aria's translated handle centered while it scales. */
+  transform-origin: 0 0;
+  cursor: grab;
+  transition:
+    border-color var(--bbb-duration-fast) var(--bbb-easing-standard),
+    box-shadow var(--bbb-duration-fast) var(--bbb-easing-standard),
+    scale var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-slider__thumb::before {
+  content: '';
+  position: absolute;
+  inset: calc((var(--bbb-slider-thumb-size) - var(--bbb-control-height)) / 2);
+  border-radius: inherit;
+}
+.bbb-slider__thumb[data-hovered]:not([data-disabled]) {
+  border-color: var(--bbb-color-accent);
+  box-shadow: var(--bbb-slider-shadow-hover);
+}
+.bbb-slider__thumb[data-dragging]:not([data-disabled]) {
+  scale: var(--bbb-slider-drag-scale);
+  box-shadow: var(--bbb-slider-shadow-drag);
+  cursor: grabbing;
+  border-color: var(--bbb-color-accent);
+}
+.bbb-slider__thumb[data-focus-visible] {
+  outline: var(--bbb-focus-width) solid var(--bbb-color-focus);
+  outline-offset: var(--bbb-focus-offset);
+}
+.bbb-slider[data-disabled] .bbb-slider__track {
+  opacity: var(--bbb-opacity-disabled);
+}
+.bbb-slider[data-disabled] .bbb-slider__thumb {
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bbb-slider__thumb[data-dragging]:not([data-disabled]) {
+    scale: none;
+  }
+}

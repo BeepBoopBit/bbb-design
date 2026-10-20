@@ -1,0 +1,30 @@
+@import './styles.css';
+
+/* Optional whole-app baseline. Import once when adopting BBB for the entire app. */
+:root {
+  font-family: var(--bbb-font-sans);
+  font-weight: var(--bbb-font-weight-regular);
+  line-height: var(--bbb-line-height-body);
+  letter-spacing: var(--bbb-letter-spacing-body);
+  color: var(--bbb-color-text);
+  background: var(--bbb-color-canvas);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: var(--bbb-space-0);
+}
+
+:focus-visible {
+  outline: var(--bbb-focus-width) solid var(--bbb-color-focus);
+  outline-offset: var(--bbb-focus-offset);
+}

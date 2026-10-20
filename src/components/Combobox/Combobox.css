@@ -1,0 +1,21 @@
+.bbb-combobox__popover {
+  width: var(--trigger-width);
+}
+.bbb-combobox .bbb-field__surface {
+  padding-inline-end: var(--bbb-space-16);
+}
+.bbb-combobox .bbb-field__control > .bbb-button {
+  position: absolute;
+  inset-inline-end: var(--bbb-space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: var(--bbb-space-2);
+  color: var(--bbb-color-text-secondary);
+  outline: none;
+}
+.bbb-combobox .bbb-field__control > .bbb-button .bbb-icon {
+  transition: transform var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-combobox .bbb-field__control:has([aria-expanded='true']) > .bbb-button .bbb-icon {
+  transform: rotate(var(--bbb-half-turn));
+}

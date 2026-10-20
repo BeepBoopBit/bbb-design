@@ -1,0 +1,26 @@
+.content-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-4);
+  width: 100%;
+}
+.content-preview__rows {
+  border-radius: var(--bbb-radius-lg);
+  background: var(--bbb-color-surface);
+  padding: var(--bbb-space-1);
+}
+.content-preview__rows > * + * {
+  border-top-color: var(--bbb-color-border);
+}
+.content-preview__card-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: var(--bbb-space-3);
+}
+.content-preview__card-content p {
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-md);
+}

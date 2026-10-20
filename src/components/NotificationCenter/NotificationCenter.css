@@ -1,0 +1,9 @@
+.bbb-notification-center { display: grid; gap: var(--bbb-space-4); }
+.bbb-notification-center__summary, .bbb-notification-center__heading, .bbb-notification-center__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--bbb-space-2); }
+.bbb-notification-center__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--bbb-space-4); }
+.bbb-notification-center__list li { border-top: var(--bbb-border-width) solid var(--bbb-color-border); padding-top: var(--bbb-space-4); overflow-wrap: anywhere; }
+.bbb-notification-center p { margin-block: var(--bbb-space-2); }
+.bbb-notification-center small { color: var(--bbb-color-text-secondary); }
+
+.bbb-notification-center { outline: none; }
+.bbb-notification-center [aria-disabled="true"] { opacity: var(--bbb-opacity-disabled); cursor: default; }

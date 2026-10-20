@@ -1,0 +1,87 @@
+.workflow-pattern {
+  grid-template-columns: minmax(0, 1fr);
+  overflow-wrap: anywhere;
+  display: grid;
+  gap: var(--bbb-space-5);
+  width: min(100%, var(--bbb-pattern-width));
+  margin-inline: auto;
+  min-width: 0;
+}
+.workflow-pattern h4 {
+  margin: 0;
+  font-size: var(--bbb-font-size-xl);
+  font-weight: var(--bbb-font-weight-semibold);
+  letter-spacing: var(--bbb-letter-spacing-tight);
+}
+.workflow-pattern p {
+  margin: 0;
+}
+.workflow-pattern__intro {
+  display: grid;
+  gap: var(--bbb-space-2);
+}
+.workflow-pattern__intro p,
+.workflow-pattern__note {
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-sm);
+}
+.workflow-pattern__fields {
+  display: grid;
+  gap: var(--bbb-space-4);
+  min-width: 0;
+}
+.workflow-pattern__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--bbb-space-2);
+}
+.workflow-pattern__summary {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--bbb-space-3);
+  font-size: var(--bbb-font-size-sm);
+}
+.workflow-pattern__summary dt {
+  color: var(--bbb-color-text-secondary);
+}
+.workflow-pattern__summary dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.workflow-pattern__error {
+  padding: var(--bbb-space-4);
+  border-radius: var(--bbb-radius-md);
+  color: var(--bbb-color-danger);
+  background: var(--bbb-color-danger-subtle);
+  font-size: var(--bbb-font-size-sm);
+}
+.workflow-pattern__error ul {
+  margin-block: var(--bbb-space-2) 0;
+  padding-inline-start: var(--bbb-space-5);
+}
+.workflow-pattern__error a {
+  color: inherit;
+}
+.workflow-pattern__step {
+  display: grid;
+  gap: var(--bbb-space-4);
+  animation: bbb-workflow-enter var(--bbb-duration-medium) var(--bbb-easing-standard);
+}
+@keyframes bbb-workflow-enter {
+  from {
+    opacity: var(--bbb-opacity-hidden);
+    transform: translateY(var(--bbb-space-2));
+  }
+  to {
+    opacity: var(--bbb-opacity-visible);
+    transform: translateY(0);
+  }
+}
+@media (max-width: 36rem) {
+  .workflow-pattern__summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

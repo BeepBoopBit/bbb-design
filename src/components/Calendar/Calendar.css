@@ -1,0 +1,85 @@
+.bbb-calendar {
+  max-width: 100%;
+  width: calc(7 * var(--bbb-calendar-cell-size) + 2 * var(--bbb-space-2));
+  padding: var(--bbb-space-2);
+  overflow-x: auto;
+}
+.bbb-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bbb-space-2);
+  margin-bottom: var(--bbb-space-2);
+}
+.bbb-calendar__header h2 {
+  margin: 0;
+  font-size: var(--bbb-font-size-md);
+  font-weight: var(--bbb-font-weight-semibold);
+  text-align: center;
+}
+.bbb-calendar__grid {
+  width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: var(--bbb-font-size-sm);
+}
+.bbb-calendar__grid th {
+  padding-block: var(--bbb-space-2);
+  color: var(--bbb-color-text-secondary);
+  font-weight: var(--bbb-font-weight-medium);
+}
+.bbb-calendar__grid td {
+  padding: 0;
+}
+.bbb-calendar__day {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  width: var(--bbb-calendar-cell-size);
+  max-width: 100%;
+  min-height: var(--bbb-calendar-cell-size);
+  border-radius: var(--bbb-radius-sm);
+  cursor: pointer;
+  outline: none;
+  font-variant-numeric: tabular-nums;
+  transition: background-color var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-calendar__day[data-hovered] {
+  background: var(--bbb-color-supporting-subtle);
+}
+.bbb-calendar__day[data-selected] {
+  background: var(--bbb-color-accent-subtle);
+  color: var(--bbb-color-accent-text);
+  border-radius: 0;
+}
+.bbb-calendar__day[data-selection-start],
+.bbb-calendar__day[data-selection-end],
+.bbb-calendar:not(.bbb-calendar--range)
+  .bbb-calendar__day[data-selected]:not([data-selection-start]):not([data-selection-end]) {
+  background: var(--bbb-color-accent);
+  color: var(--bbb-color-on-accent);
+  border-radius: var(--bbb-radius-sm);
+}
+.bbb-calendar__day[data-focus-visible] {
+  outline: var(--bbb-focus-width) solid var(--bbb-color-focus);
+  outline-offset: calc(-1 * var(--bbb-focus-width));
+}
+.bbb-calendar__day[data-disabled],
+.bbb-calendar__day[data-unavailable] {
+  color: var(--bbb-color-text-muted);
+  opacity: var(--bbb-opacity-disabled);
+  cursor: not-allowed;
+}
+.bbb-calendar__day[data-outside-month] {
+  visibility: hidden;
+}
+.bbb-calendar__day[data-today] {
+  font-weight: var(--bbb-font-weight-bold);
+  text-decoration: underline;
+  text-underline-offset: var(--bbb-space-1);
+}
+
+.bbb-calendar__header,
+.bbb-calendar__grid {
+  min-width: calc(7 * var(--bbb-calendar-cell-size));
+}

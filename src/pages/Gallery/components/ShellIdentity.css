@@ -1,0 +1,23 @@
+.shell-identity {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: var(--bbb-sidebar-width);
+  min-height: calc(var(--bbb-shell-header-height) - var(--bbb-border-width));
+  padding: var(--bbb-space-3);
+  border-inline-end: var(--bbb-border-width) solid var(--bbb-color-border);
+  background: var(--bbb-color-surface-inset);
+  transition: width var(--bbb-duration-medium) var(--bbb-easing-standard);
+}
+.shell-identity[data-collapsed] {
+  width: var(--bbb-sidebar-rail-width);
+}
+.shell-identity__logo {
+  margin-inline-start: var(--bbb-space-3);
+  width: calc(var(--bbb-sidebar-content-width) - var(--bbb-control-height) - var(--bbb-space-6));
+}
+.shell-identity > .bbb-sidebar-toggle {
+  position: absolute;
+  inset-inline-end: var(--bbb-space-3);
+}

@@ -1,0 +1,4 @@
+.bbb-bulk-action-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--bbb-space-3); padding: var(--bbb-space-3); border: var(--bbb-border-width) solid var(--bbb-color-border); border-radius: var(--bbb-radius-md); background: var(--bbb-color-surface-inset); }
+.bbb-bulk-action-bar__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--bbb-space-2); }
+
+.bbb-bulk-action-bar [aria-disabled="true"] { opacity: var(--bbb-opacity-disabled); cursor: default; background: var(--bbb-color-transparent); }

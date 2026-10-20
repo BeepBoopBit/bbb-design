@@ -1,0 +1,12 @@
+/* Portaled tooltips are also theme roots; their inverse colors must win. */
+.bbb-tooltip,
+.bbb-tooltip.bbb-theme {
+  z-index: var(--bbb-layer-overlay);
+  max-width: var(--bbb-tooltip-width);
+  padding: var(--bbb-space-2) var(--bbb-space-3);
+  border-radius: var(--bbb-radius-sm);
+  color: var(--bbb-color-surface);
+  background: var(--bbb-color-text);
+  font-size: var(--bbb-font-size-xs);
+  box-shadow: var(--bbb-shadow-sm);
+}

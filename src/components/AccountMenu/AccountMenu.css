@@ -1,0 +1,4 @@
+.bbb-account-menu { display: grid; gap: var(--bbb-space-4); min-width: 0; }
+.bbb-account-menu__email { margin: 0; overflow-wrap: anywhere; color: var(--bbb-color-text-secondary); }
+.bbb-account-menu__actions { display: grid; gap: var(--bbb-space-2); border-top: var(--bbb-border-width) solid var(--bbb-color-border); padding-top: var(--bbb-space-3); }
+.bbb-account-menu__actions .bbb-button { justify-content: flex-start; text-align: start; }

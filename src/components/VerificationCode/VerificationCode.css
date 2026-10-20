@@ -1,0 +1,5 @@
+.bbb-verification-code input {
+  font-family: var(--bbb-font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--bbb-code-letter-spacing);
+}

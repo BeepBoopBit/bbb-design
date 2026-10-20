@@ -1,0 +1,14 @@
+.bbb-theme {
+  font-family: var(--bbb-font-sans);
+  font-weight: var(--bbb-font-weight-regular);
+  line-height: var(--bbb-line-height-body);
+  letter-spacing: var(--bbb-letter-spacing-body);
+  color: var(--bbb-color-text);
+}
+.bbb-theme-scope {
+  background: var(--bbb-color-canvas);
+  min-width: 0;
+}
+.bbb-theme :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--bbb-font-heading);
+}

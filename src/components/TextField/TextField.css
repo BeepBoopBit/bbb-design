@@ -1,0 +1,28 @@
+.bbb-field__control > .bbb-icon {
+  color: var(--bbb-color-text-muted);
+}
+.bbb-field__surface:has(> .bbb-field__control > .bbb-icon) > .bbb-field__label {
+  padding-inline-start: calc(var(--bbb-icon-size) + var(--bbb-space-2));
+}
+.bbb-field__control input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--bbb-field-value-height);
+  padding: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: var(--bbb-font-size-base);
+  line-height: var(--bbb-line-height-body);
+  color: var(--bbb-color-text);
+  background: var(--bbb-color-transparent);
+}
+.bbb-field__control input::placeholder {
+  color: var(--bbb-color-text-muted);
+}
+.bbb-field__control input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+.bbb-field__control input:disabled {
+  cursor: not-allowed;
+}

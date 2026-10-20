@@ -1,0 +1,12 @@
+.bbb-split-pane { container: bbb-split / inline-size; min-width: 0; width: 100%; }
+.bbb-split-pane__layout { display: grid; grid-template-columns: minmax(0, var(--bbb-split-position, calc(var(--bbb-split-default) * 1%))) var(--bbb-space-4) minmax(0, 1fr); }
+.bbb-split-pane__panel { min-width: 0; overflow-wrap: anywhere; }
+.bbb-split-pane__separator { cursor: col-resize; touch-action: none; position: relative; min-height: var(--bbb-control-height); }
+.bbb-split-pane__separator::before { content: ''; position: absolute; inset-block: 0; inset-inline-start: 50%; width: var(--bbb-border-width); background: var(--bbb-color-border); }
+.bbb-split-pane__separator:hover::before, .bbb-split-pane__separator:focus-visible::before { width: var(--bbb-focus-width); background: var(--bbb-color-focus); }
+.bbb-split-pane__separator:focus-visible { outline: var(--bbb-focus-width) solid var(--bbb-color-focus); outline-offset: calc(-1 * var(--bbb-focus-width)); }
+/* Match the narrow composition breakpoint: stacked panes need no resize handle. */
+@container bbb-split (max-width: 36rem) {
+  .bbb-split-pane__layout { grid-template-columns: minmax(0, 1fr); gap: var(--bbb-space-4); }
+  .bbb-split-pane__separator { display: none; }
+}

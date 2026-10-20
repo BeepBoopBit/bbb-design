@@ -1,0 +1,2 @@
+.bbb-appearance-settings { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--bbb-space-4); }
+.bbb-appearance-settings .bbb-select__value { white-space: normal; overflow-wrap: anywhere; }

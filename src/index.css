@@ -1,0 +1,2 @@
+/* Gallery opts into the application baseline; copied components use foundations/styles.css. */
+@import './foundations/baseline.css';

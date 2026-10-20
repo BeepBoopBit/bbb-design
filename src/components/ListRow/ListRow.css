@@ -1,0 +1,79 @@
+.bbb-list-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--bbb-space-3);
+  width: 100%;
+  min-width: 0;
+  min-height: var(--bbb-list-row-height);
+  padding: var(--bbb-space-4);
+  border: var(--bbb-border-width) solid var(--bbb-color-transparent);
+  border-radius: var(--bbb-radius-md);
+  color: var(--bbb-color-text);
+  text-align: start;
+  text-decoration: none;
+}
+.bbb-list-row__main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1 1 var(--bbb-list-row-content-width);
+  min-width: 0;
+  gap: var(--bbb-space-3);
+}
+.bbb-list-row__copy {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--bbb-space-half);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.bbb-list-row__label {
+  font-size: var(--bbb-font-size-md);
+  font-weight: var(--bbb-font-weight-medium);
+  line-height: var(--bbb-line-height-body);
+}
+.bbb-list-row__description {
+  font-size: var(--bbb-font-size-xs);
+  font-weight: var(--bbb-font-weight-regular);
+  line-height: var(--bbb-line-height-body);
+  color: var(--bbb-color-text-secondary);
+}
+.bbb-list-row__leading {
+  display: flex;
+  align-items: center;
+  color: var(--bbb-color-supporting);
+}
+.bbb-list-row__trailing {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  margin-inline-start: auto;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-sm);
+}
+.bbb-list-row > .bbb-icon {
+  color: var(--bbb-color-text-muted);
+}
+.bbb-list-row--interactive {
+  flex-wrap: nowrap;
+  transition:
+    background-color var(--bbb-duration-fast) var(--bbb-easing-standard),
+    border-color var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-list-row--interactive .bbb-list-row__main {
+  flex-wrap: nowrap;
+}
+.bbb-list-row--interactive:hover:not(:disabled) {
+  background: var(--bbb-color-supporting-subtle);
+  border-color: var(--bbb-color-field-hover-border);
+}
+.bbb-list-row--interactive:active:not(:disabled) {
+  background: var(--bbb-color-surface-muted);
+  transform: none;
+}
+.bbb-list-row--interactive:is(:focus-visible, [data-focus-visible]) {
+  outline: none;
+  border-color: var(--bbb-color-focus);
+  box-shadow: inset 0 0 0 var(--bbb-border-width) var(--bbb-color-focus);
+}

@@ -1,0 +1,5 @@
+.bbb-status-indicator { display: inline-flex; align-items: center; gap: var(--bbb-space-2); font-size: var(--bbb-font-size-md); color: var(--bbb-color-text-secondary); }
+.bbb-status-indicator__dot { flex-shrink: 0; width: var(--bbb-space-2); height: var(--bbb-space-2); border-radius: var(--bbb-radius-full); background: currentColor; }
+.bbb-status-indicator--success { color: var(--bbb-color-success); }
+.bbb-status-indicator--warning { color: var(--bbb-color-warning); }
+.bbb-status-indicator--danger { color: var(--bbb-color-danger); }

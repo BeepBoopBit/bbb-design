@@ -1,0 +1,42 @@
+.bbb-document-workspace-frame { container: document-workspace / inline-size; min-width: 0; width: 100%; }
+.bbb-document-workspace {
+  display: grid;
+  grid-template-columns: var(--bbb-sidebar-width) minmax(0, 1fr);
+  min-width: 0;
+  width: 100%;
+  min-height: 100%;
+  background: var(--bbb-color-surface);
+  transition: grid-template-columns var(--bbb-duration-medium) var(--bbb-easing-standard);
+}
+.bbb-document-workspace[data-collapsed] { grid-template-columns: var(--bbb-sidebar-rail-width) minmax(0, 1fr); }
+.bbb-document-workspace__sidebar,
+.bbb-document-workspace__drawer { display: flex; flex-direction: column; gap: var(--bbb-space-5); min-width: 0; }
+.bbb-document-workspace__sidebar {
+  padding: var(--bbb-space-4) var(--bbb-space-3);
+  border-inline-end: var(--bbb-border-width) solid var(--bbb-color-border);
+  background: var(--bbb-color-surface-inset);
+  overflow: hidden;
+}
+.bbb-document-workspace__content { display: flex; flex-direction: column; min-width: 0; }
+.bbb-document-workspace__tools,
+.bbb-document-workspace__document-tools { display: flex; align-items: center; gap: var(--bbb-space-2); flex-wrap: wrap; }
+.bbb-document-workspace__tools { justify-content: space-between; padding: var(--bbb-space-3); }
+.bbb-document-workspace__document-tools { flex-shrink: 0; }
+.bbb-document-workspace__account { min-width: 0; max-width: 100%; }
+.bbb-document-workspace__mobile-toggle { display: none; }
+.bbb-document-workspace__footer { margin-top: auto; }
+/* Breakpoints respond to this workspace, including when embedded in Gallery. */
+@container document-workspace (max-width: 48rem) {
+  .bbb-document-workspace,
+  .bbb-document-workspace[data-collapsed] { grid-template-columns: minmax(0, 1fr); }
+  .bbb-document-workspace__sidebar,
+  .bbb-document-workspace__desktop-toggle { display: none; }
+  .bbb-document-workspace__mobile-toggle { display: flex; }
+}
+@container document-workspace (max-width: 20rem) {
+  .bbb-document-workspace__tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--bbb-space-1); padding: var(--bbb-space-2); }
+  .bbb-document-workspace__document-tools { display: contents; }
+  .bbb-document-workspace__mobile-toggle { grid-column: 1; grid-row: 1; }
+  .bbb-document-workspace__account { grid-column: 2; grid-row: 1; }
+  .bbb-document-workspace__document-tools > .bbb-button { grid-column: 1; justify-self: start; }
+}

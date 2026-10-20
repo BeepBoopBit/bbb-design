@@ -1,0 +1,19 @@
+.bbb-skeleton {
+  display: block;
+  width: 100%;
+  height: var(--bbb-skeleton-line-height);
+  border-radius: var(--bbb-radius-sm);
+  background: var(--bbb-color-border);
+}
+.bbb-skeleton--title {
+  height: var(--bbb-skeleton-title-height);
+}
+.bbb-skeleton--avatar {
+  width: var(--bbb-skeleton-avatar-size);
+  height: var(--bbb-skeleton-avatar-size);
+  flex-shrink: 0;
+  border-radius: var(--bbb-radius-full);
+}
+.bbb-skeleton--short {
+  width: var(--bbb-skeleton-short-width);
+}

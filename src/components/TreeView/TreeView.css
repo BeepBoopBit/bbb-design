@@ -1,0 +1,7 @@
+.bbb-tree-view { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--bbb-space-1); min-width: 0; }
+.bbb-tree-view__item { display: flex; min-width: 0; align-items: center; gap: var(--bbb-space-2); min-height: var(--bbb-control-height); padding: var(--bbb-space-2); padding-inline-start: calc(var(--bbb-space-2) + var(--bbb-tree-depth) * var(--bbb-space-4)); border-radius: var(--bbb-radius-sm); cursor: pointer; }
+.bbb-tree-view__item span { overflow-wrap: anywhere; min-width: 0; }
+.bbb-tree-view__item[data-hovered] { background: var(--bbb-color-surface-inset); }
+.bbb-tree-view__item[data-selected] { background: var(--bbb-color-accent-subtle); color: var(--bbb-color-accent-text); }
+.bbb-tree-view__item[data-focus-visible] { outline: var(--bbb-focus-width) solid var(--bbb-color-focus); outline-offset: calc(-1 * var(--bbb-focus-width)); }
+.bbb-tree-view__item[data-disabled] { opacity: var(--bbb-opacity-disabled); cursor: default; }

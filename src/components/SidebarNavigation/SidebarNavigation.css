@@ -1,0 +1,213 @@
+.bbb-sidebar-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-6);
+  width: 100%;
+  min-width: 0;
+}
+.bbb-sidebar-navigation__group > p {
+  margin: 0 var(--bbb-space-3) var(--bbb-space-2);
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-xs);
+  font-weight: var(--bbb-font-weight-medium);
+  overflow-wrap: anywhere;
+}
+.bbb-sidebar-navigation ul {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__item {
+  display: flex;
+  align-items: center;
+  gap: var(--bbb-space-3);
+  min-height: var(--bbb-control-height);
+  padding: var(--bbb-space-2) var(--bbb-space-3);
+  border-radius: var(--bbb-radius-md);
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-md);
+  font-weight: var(--bbb-font-weight-medium);
+  text-decoration: none;
+  transition:
+    background-color var(--bbb-duration-fast) var(--bbb-easing-standard),
+    color var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__item > .bbb-icon {
+  margin: 0;
+}
+.bbb-sidebar-navigation__label {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.bbb-sidebar-navigation__copy {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  gap: var(--bbb-space-3);
+}
+.bbb-sidebar-navigation__badge {
+  font-size: var(--bbb-font-size-xs);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__item:hover:not([aria-disabled]):not(:disabled) {
+  background: var(--bbb-color-surface-muted);
+  color: var(--bbb-color-text);
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__item[aria-current] {
+  background: var(--bbb-color-supporting-subtle);
+  color: var(--bbb-color-supporting-hover);
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__item[aria-current]:hover {
+  background: var(--bbb-color-supporting-subtle-hover);
+}
+.bbb-sidebar-navigation__item[aria-disabled] {
+  opacity: var(--bbb-opacity-disabled);
+  cursor: not-allowed;
+}
+.bbb-sidebar-navigation__item:focus-visible {
+  outline-offset: calc(-1 * var(--bbb-focus-width));
+}
+.bbb-sidebar-toggle.bbb-button {
+  color: var(--bbb-color-text-secondary);
+}
+.bbb-sidebar-navigation[data-collapsible] .bbb-sidebar-navigation__group {
+  position: relative;
+  overflow: clip;
+}
+.bbb-sidebar-navigation[data-collapsible] .bbb-sidebar-navigation__group + .bbb-sidebar-navigation__group::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: var(--bbb-space-3);
+  height: var(--bbb-border-width);
+  background: var(--bbb-color-border-strong);
+  opacity: var(--bbb-opacity-hidden);
+  pointer-events: none;
+  transition: opacity var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-sidebar-navigation[data-compact] .bbb-sidebar-navigation__group + .bbb-sidebar-navigation__group::before {
+  opacity: var(--bbb-opacity-visible);
+  transition-delay: calc(var(--bbb-duration-medium) - var(--bbb-duration-fast));
+}
+.bbb-sidebar-navigation[data-collapsible] .bbb-sidebar-navigation__group > p {
+  width: calc(var(--bbb-sidebar-content-width) - var(--bbb-space-6));
+}
+.bbb-sidebar-navigation[data-collapsible] .bbb-sidebar-navigation__item {
+  position: relative;
+  overflow: hidden;
+  padding-inline: var(--bbb-sidebar-icon-inset);
+}
+.bbb-sidebar-navigation[data-collapsible] .bbb-sidebar-navigation__copy {
+  flex: none;
+  width: calc(var(--bbb-sidebar-content-width) - var(--bbb-sidebar-icon-inset) * 2 - var(--bbb-icon-size) - var(--bbb-space-3));
+}
+
+/* Keep full-size content in place while its viewport widens. Fade it in only
+   after the opening motion has made room, and fade out immediately on close. */
+.bbb-sidebar-reveal {
+  opacity: var(--bbb-opacity-visible);
+  transform: translateX(0);
+  transition:
+    opacity var(--bbb-duration-fast) var(--bbb-easing-standard),
+    transform var(--bbb-duration-fast) var(--bbb-easing-standard);
+  transition-delay: calc(var(--bbb-duration-medium) - var(--bbb-duration-fast));
+}
+.bbb-sidebar-reveal[data-hidden] {
+  opacity: var(--bbb-opacity-hidden);
+  transform: translateX(calc(-1 * var(--bbb-space-2)));
+  transition-delay: var(--bbb-duration-instant);
+}
+
+.bbb-sidebar-navigation ul[hidden] {
+  display: none;
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__disclosure {
+  width: 100%;
+  border: 0;
+  text-align: start;
+  justify-content: flex-start;
+}
+.bbb-sidebar-navigation__disclosure[data-current] {
+  color: var(--bbb-color-supporting-hover);
+}
+:is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul {
+  margin-block-start: var(--bbb-space-1);
+}
+
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__copy {
+  padding-inline-start: var(--bbb-sidebar-nest-indent);
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item:not(.bbb-sidebar-navigation__disclosure) {
+  font-weight: var(--bbb-font-weight-regular);
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__disclosure {
+  color: var(--bbb-color-text);
+  font-weight: var(--bbb-font-weight-semibold);
+}
+.bbb-sidebar-navigation .bbb-sidebar-navigation__disclosure[data-current] {
+  color: var(--bbb-color-supporting-hover);
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item > :not(.bbb-sidebar-navigation__copy) {
+  opacity: var(--bbb-opacity-hidden);
+  transition: opacity var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-sidebar-navigation[data-compact] :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item > :not(.bbb-sidebar-navigation__copy) {
+  opacity: var(--bbb-opacity-visible);
+}
+
+.bbb-sidebar-navigation:not([data-collapsible]) .bbb-sidebar-navigation__disclosure {
+  gap: var(--bbb-space-2);
+  padding-inline: var(--bbb-space-2);
+}
+.bbb-sidebar-navigation:not([data-collapsible]) .bbb-sidebar-navigation__disclosure .bbb-sidebar-navigation__copy {
+  gap: var(--bbb-space-2);
+}
+
+/* Keep the selected child surface aligned with the indented hierarchy. */
+.bbb-sidebar-navigation {
+  --bbb-sidebar-child-surface-inset: calc(var(--bbb-space-2) + var(--bbb-icon-size) / 2 + var(--bbb-space-3));
+}
+.bbb-sidebar-navigation[data-collapsible] {
+  --bbb-sidebar-child-surface-inset: calc(var(--bbb-sidebar-icon-inset) + var(--bbb-icon-size) / 2 + var(--bbb-space-3));
+}
+.bbb-sidebar-navigation[data-compact] {
+  --bbb-sidebar-child-surface-inset: 0;
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item {
+  --bbb-sidebar-child-fill: var(--bbb-color-transparent);
+  text-decoration: none;
+  position: relative;
+  background: none;
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--bbb-sidebar-child-surface-inset);
+  inset-inline-end: 0;
+  border-radius: var(--bbb-radius-md);
+  background: var(--bbb-sidebar-child-fill);
+  pointer-events: none;
+  transition: background-color var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item > * {
+  position: relative;
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item:hover:not([aria-disabled]):not(:disabled) {
+  --bbb-sidebar-child-fill: var(--bbb-color-surface-muted);
+  background: none;
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item[aria-current] {
+  --bbb-sidebar-child-fill: var(--bbb-color-supporting-subtle);
+  color: var(--bbb-color-supporting-hover);
+}
+.bbb-sidebar-navigation :is(.bbb-sidebar-navigation__group, .bbb-sidebar-navigation__branch)[data-dropdown] > ul .bbb-sidebar-navigation__item[aria-current]:hover:not([aria-disabled]):not(:disabled) {
+  --bbb-sidebar-child-fill: var(--bbb-color-supporting-subtle-hover);
+}

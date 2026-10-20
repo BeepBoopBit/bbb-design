@@ -1,0 +1,12 @@
+.utility-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--bbb-space-4); min-width: 0; width: 100%; }
+.utility-preview--surface { padding: var(--bbb-space-4); border-radius: var(--bbb-radius-md); }
+.utility-preview__row { display: flex; align-items: center; flex-wrap: wrap; gap: var(--bbb-space-3); }
+.utility-preview h4, .utility-preview p { margin: 0; overflow-wrap: anywhere; }
+.utility-preview .bbb-segmented { flex-wrap: wrap; }
+
+.utility-preview__row > span { min-width: 0; overflow-wrap: anywhere; }
+.utility-preview .bbb-segmented .bbb-filters__option { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+.utility-preview .bbb-segmented__label { min-width: 0; }
+@container gallery-content (max-width: 36rem) {
+  .utility-preview--surface { padding: var(--bbb-space-2); }
+}

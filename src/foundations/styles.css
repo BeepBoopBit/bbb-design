@@ -1,0 +1,36 @@
+@import './tokens.css';
+
+/* Component essentials. Application-wide typography, margins, and background
+   belong to the consuming app; baseline.css is available as an explicit opt-in. */
+:where(.bbb-theme, .bbb-theme *, [class^='bbb-'], [class*=' bbb-']),
+:where(.bbb-theme, .bbb-theme *, [class^='bbb-'], [class*=' bbb-'])::before,
+:where(.bbb-theme, .bbb-theme *, [class^='bbb-'], [class*=' bbb-'])::after {
+  box-sizing: border-box;
+}
+
+:where(.bbb-theme, [class^='bbb-'], [class*=' bbb-']):focus-visible,
+:where(.bbb-theme, [class^='bbb-'], [class*=' bbb-']) :focus-visible {
+  outline: var(--bbb-focus-width) solid var(--bbb-color-focus);
+  outline-offset: var(--bbb-focus-offset);
+}
+
+.bbb-icon {
+  flex-shrink: 0;
+  width: var(--bbb-icon-size);
+  height: var(--bbb-icon-size);
+  stroke-width: var(--bbb-icon-stroke);
+}
+.bbb-icon--directional:dir(rtl) {
+  transform: scaleX(-1);
+}
+.bbb-visually-hidden {
+  position: absolute;
+  width: var(--bbb-border-width);
+  height: var(--bbb-border-width);
+  padding: var(--bbb-space-0);
+  margin: calc(-1 * var(--bbb-border-width));
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: none;
+}

@@ -1,0 +1,9 @@
+.workspace-account-trigger { max-width: 100%; }
+.workspace-account-trigger > span { min-width: 0; overflow-wrap: anywhere; }
+.workspace-account-menu,
+.workspace-account-menu__group { display: grid; gap: var(--bbb-space-2); min-width: 0; }
+.workspace-account-menu__group { border-top: var(--bbb-border-width) solid var(--bbb-color-border); padding-top: var(--bbb-space-3); }
+.workspace-account-menu .preview-note { text-align: start; }
+.workspace-account-menu .bbb-button { justify-content: flex-start; padding-inline: var(--bbb-space-2); text-align: start; color: var(--bbb-color-text); }
+.workspace-account-menu .bbb-button[aria-pressed="true"] { color: var(--bbb-color-accent-text); background: var(--bbb-color-accent-subtle); }
+.workspace-account-popover .bbb-popover__content { padding: var(--bbb-space-3); }

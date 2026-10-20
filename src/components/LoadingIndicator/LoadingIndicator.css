@@ -1,0 +1,1 @@
+.bbb-loading-indicator { display: inline-flex; align-items: center; gap: var(--bbb-space-2); color: var(--bbb-color-text-secondary); font-size: var(--bbb-font-size-md); }

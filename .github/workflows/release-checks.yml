@@ -1,0 +1,87 @@
+name: Release checks and deployment
+
+on:
+  push:
+    tags: ['**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bbb-ui-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.event.deleted != true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      CI: true
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Verify the pinned browser environment
+        run: node --input-type=module -e "import p from './node_modules/@playwright/test/package.json' with {type:'json'}; if (p.version !== '1.63.0') throw new Error('Update the workflow container to match Playwright ' + p.version)"
+      - name: Match browser home ownership to the container user
+        run: chown "$(id -u):$(id -g)" "$HOME"
+      - run: npm run release:prepare
+      - run: npm run deploy -- --dry-run
+      - run: npm run test:hosting -- --reporter=line --max-failures=5
+      - run: npm run test:browsers -- --reporter=line --max-failures=5
+      - run: npm run test:visual -- --reporter=line --max-failures=5
+      - run: npm run test:release:consumer
+      - name: Upload checked release files
+        uses: actions/upload-artifact@v7
+        with:
+          name: bbb-release-candidate
+          path: .release/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-diagnostics
+          path: |
+            test-results/
+            playwright-report/
+            .copy-consumer/review/
+          include-hidden-files: true
+          retention-days: 7
+
+  deploy:
+    needs: release
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') && !github.event.deleted
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: bbb-release-candidate
+          path: .release/
+      - name: Deploy the checked candidate to Cloudflare
+        run: npm run deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: Verify the public site and registry
+        run: npm run verify:deployment

@@ -1,0 +1,7 @@
+.bbb-media-preview { margin: 0; display: grid; justify-items: start; gap: var(--bbb-space-3); min-width: 0; }
+.bbb-media-preview__asset { width: 100%; min-width: 0; display: grid; gap: var(--bbb-space-3); }
+.bbb-media-preview__asset img { display: block; width: 100%; max-height: var(--bbb-media-preview-height); object-fit: contain; border-radius: var(--bbb-radius-md); }
+.bbb-media-preview figcaption { font-size: var(--bbb-font-size-md); color: var(--bbb-color-text-secondary); }
+.bbb-media-preview__dialog { width: var(--bbb-content-width); }
+
+.bbb-media-preview__asset:focus-visible { outline: var(--bbb-focus-width) solid var(--bbb-color-focus); outline-offset: var(--bbb-focus-offset); }

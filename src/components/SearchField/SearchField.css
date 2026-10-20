@@ -1,0 +1,21 @@
+.bbb-search-field .bbb-field__surface[data-variant] {
+  --bbb-field-current-radius: var(--bbb-search-radius);
+  padding-block: var(--bbb-space-1);
+}
+.bbb-search-field .bbb-field__control > .bbb-button {
+  color: var(--bbb-color-text-secondary);
+}
+.bbb-search-field {
+  container-type: inline-size;
+}
+@container (max-width: 12rem) {
+  .bbb-search-field .bbb-field__surface[data-variant] {
+    padding-inline: var(--bbb-space-2);
+  }
+  .bbb-search-field .bbb-field__control {
+    gap: var(--bbb-space-1);
+  }
+  .bbb-search-field .bbb-field__control:has(> .bbb-button) > .bbb-icon {
+    display: none;
+  }
+}

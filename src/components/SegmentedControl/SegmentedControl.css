@@ -1,0 +1,14 @@
+.bbb-segmented .bbb-filters__option[data-selected] {
+  color: var(--bbb-color-text);
+  background: var(--bbb-color-surface);
+  box-shadow: var(--bbb-shadow-control);
+}
+.bbb-segmented .bbb-filters__option[data-hovered]:not([data-disabled]) {
+  background: var(--bbb-color-supporting-subtle);
+}
+
+.bbb-segmented .bbb-filters__option[data-disabled] { opacity: var(--bbb-opacity-disabled); cursor: not-allowed; }
+.bbb-segmented .bbb-filters__option[data-disabled]:not([data-selected]):hover {
+  background: var(--bbb-color-transparent);
+}
+.bbb-segmented .bbb-filters__option[data-disabled]:active { transform: none; }

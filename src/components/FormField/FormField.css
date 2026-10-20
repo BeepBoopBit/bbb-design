@@ -1,0 +1,179 @@
+.bbb-field {
+  position: relative;
+  display: grid;
+  gap: var(--bbb-space-2);
+  min-width: 0;
+}
+.bbb-field > .bbb-visually-hidden {
+  inset-inline-start: 0;
+  top: 0;
+  margin: 0;
+}
+.bbb-field__surface {
+  --bbb-field-current-radius: var(--bbb-field-radius);
+  --bbb-field-stroke: var(--bbb-color-field-border);
+  --bbb-field-fill: var(--bbb-color-field-surface);
+  position: relative;
+  display: grid;
+  align-content: center;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bbb-space-half);
+  min-width: 0;
+  min-height: var(--bbb-field-height);
+  padding: var(--bbb-space-3) var(--bbb-space-4);
+  border: var(--bbb-border-width) solid var(--bbb-field-stroke);
+  border-radius: var(--bbb-field-current-radius);
+  background: var(--bbb-field-fill);
+  outline: none;
+  cursor: text;
+  transition:
+    border-color var(--bbb-duration-fast) var(--bbb-easing-standard),
+    box-shadow var(--bbb-duration-fast) var(--bbb-easing-standard),
+    background-color var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+.bbb-field__surface[data-variant='outlined'],
+.bbb-field__surface[data-variant='subtle'],
+.bbb-field__surface[data-variant='plain'] {
+  --bbb-field-current-radius: var(--bbb-radius-sm);
+  min-height: var(--bbb-control-height);
+  padding: var(--bbb-space-2) var(--bbb-space-3);
+}
+.bbb-field__surface:not([data-variant='filled']):has(> .bbb-field__control > .bbb-button) {
+  padding-block: var(--bbb-space-1);
+}
+.bbb-field__surface:not([data-variant='filled']) .bbb-field__control > .bbb-button {
+  min-height: calc(var(--bbb-control-height) - var(--bbb-space-2) - var(--bbb-border-width) * 2);
+  padding-block: 0;
+}
+.bbb-field__surface[data-variant='outlined'] {
+  --bbb-field-stroke: var(--bbb-color-border-strong);
+  --bbb-field-fill: var(--bbb-color-surface);
+}
+.bbb-field__surface[data-variant='outlined']:where(:hover:not(:has(:disabled))) {
+  --bbb-field-stroke: var(--bbb-color-text-secondary);
+}
+.bbb-field__surface[data-variant='plain'] {
+  --bbb-field-fill: var(--bbb-color-transparent);
+  padding-inline: var(--bbb-space-2);
+}
+.bbb-field:has(> .bbb-field__surface:not([data-variant='filled'])) > .bbb-field__label {
+  color: var(--bbb-color-text-secondary);
+  line-height: var(--bbb-line-height-body);
+  overflow-wrap: anywhere;
+}
+.bbb-field:has(> .bbb-field__surface:not([data-variant='filled'])) > .bbb-field__message {
+  padding-inline: 0;
+}
+.bbb-field__surface > .bbb-field__label {
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-xs);
+  line-height: var(--bbb-line-height-body);
+  font-weight: var(--bbb-font-weight-medium);
+  cursor: inherit;
+  overflow-wrap: anywhere;
+}
+/* Labels remain present as values change, without floating or covering the text. */
+.bbb-field__surface:has(> .bbb-visually-hidden) {
+  min-height: var(--bbb-control-height);
+  padding-block: var(--bbb-space-2);
+}
+.bbb-field__surface:where(:hover:not(:has(:disabled))) {
+  --bbb-field-stroke: var(--bbb-color-field-hover-border);
+  --bbb-field-fill: var(--bbb-color-field-hover-surface);
+}
+.bbb-field__surface:focus-within,
+.bbb-field__surface:has([aria-expanded='true']) {
+  --bbb-field-stroke: var(--bbb-color-focus);
+  --bbb-field-fill: var(--bbb-color-surface);
+  box-shadow: inset 0 0 0 var(--bbb-border-width) var(--bbb-field-stroke);
+}
+.bbb-field__surface:has(input:disabled, textarea:disabled, .bbb-select__trigger:disabled) {
+  opacity: var(--bbb-opacity-disabled);
+  cursor: not-allowed;
+}
+.bbb-field__surface[data-invalid='true'],
+.bbb-field__surface:has(:is(input, textarea)[aria-invalid='true'], :user-invalid),
+.bbb-select[data-invalid] .bbb-field__surface,
+.bbb-combobox[data-invalid] .bbb-field__surface {
+  --bbb-field-stroke: var(--bbb-color-danger);
+}
+.bbb-field__surface[data-invalid='true'] > .bbb-field__label,
+.bbb-field:has(> .bbb-field__surface[data-invalid='true']) > .bbb-field__label,
+.bbb-select[data-invalid] .bbb-field__label,
+.bbb-combobox[data-invalid] .bbb-field__label {
+  color: var(--bbb-color-danger);
+}
+.bbb-field__message {
+  margin: 0;
+  padding-inline: var(--bbb-space-4);
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-xs);
+}
+.bbb-field__message--error {
+  color: var(--bbb-color-danger);
+}
+/* Standalone labels remain available to radio groups and other composite controls. */
+.bbb-field__label {
+  font-size: var(--bbb-font-size-sm);
+  font-weight: var(--bbb-font-weight-medium);
+}
+.bbb-field .bbb-input,
+.bbb-field__control {
+  min-width: 0;
+  min-height: var(--bbb-field-value-height);
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  color: var(--bbb-color-text);
+  background: var(--bbb-color-transparent);
+  box-shadow: none;
+  outline: none;
+}
+.bbb-field .bbb-input {
+  width: 100%;
+  font: inherit;
+  font-size: var(--bbb-font-size-base);
+  line-height: var(--bbb-line-height-body);
+}
+.bbb-field .bbb-input:is(:focus, [data-focus-visible]) {
+  outline: none;
+}
+.bbb-field .bbb-input:disabled {
+  opacity: var(--bbb-opacity-visible);
+  cursor: not-allowed;
+}
+.bbb-field__control {
+  display: flex;
+  align-items: center;
+  gap: var(--bbb-space-2);
+}
+.bbb-input::placeholder {
+  color: var(--bbb-color-text-muted);
+}
+
+@media (prefers-contrast: more), (forced-colors: active) {
+  .bbb-field__surface {
+    --bbb-field-stroke: var(--bbb-color-border-strong);
+  }
+  .bbb-field__surface:focus-within,
+  .bbb-field__surface:has([aria-expanded='true']) {
+    --bbb-field-stroke: var(--bbb-color-focus);
+    outline: var(--bbb-focus-width) solid var(--bbb-field-stroke);
+    outline-offset: calc(-1 * var(--bbb-focus-width));
+  }
+  .bbb-field__surface[data-invalid='true'],
+  .bbb-field__surface:has(:is(input, textarea)[aria-invalid='true'], :user-invalid),
+  .bbb-select[data-invalid] .bbb-field__surface,
+  .bbb-combobox[data-invalid] .bbb-field__surface {
+    --bbb-field-stroke: var(--bbb-color-danger);
+  }
+}
+
+.bbb-field__surface:has(> .bbb-visually-hidden) .bbb-field__control > .bbb-button {
+  min-height: var(--bbb-field-value-height);
+  padding-block: 0;
+}
+.bbb-field__surface .bbb-field__control > .bbb-button[data-focus-visible] {
+  background: var(--bbb-color-supporting-subtle);
+  outline: none;
+}

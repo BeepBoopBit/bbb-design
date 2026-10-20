@@ -1,0 +1,44 @@
+.bbb-avatar {
+  --bbb-avatar-size: var(--bbb-avatar-size-md);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--bbb-avatar-size);
+  height: var(--bbb-avatar-size);
+  overflow: hidden;
+  border-radius: var(--bbb-radius-full);
+  background: var(--bbb-color-surface-muted);
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-sm);
+  font-weight: var(--bbb-font-weight-semibold);
+  line-height: var(--bbb-line-height-tight);
+  vertical-align: middle;
+}
+.bbb-avatar--sm {
+  --bbb-avatar-size: var(--bbb-avatar-size-sm);
+  font-size: var(--bbb-font-size-xs);
+}
+.bbb-avatar--lg {
+  --bbb-avatar-size: var(--bbb-avatar-size-lg);
+  font-size: var(--bbb-font-size-base);
+}
+.bbb-avatar--teal {
+  background: var(--bbb-color-supporting-subtle);
+  color: var(--bbb-color-supporting);
+}
+.bbb-avatar--ember {
+  background: var(--bbb-color-accent-subtle);
+  color: var(--bbb-color-accent-text);
+}
+.bbb-avatar__fallback {
+  display: grid;
+  place-items: center;
+}
+.bbb-avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

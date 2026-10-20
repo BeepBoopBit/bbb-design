@@ -1,0 +1,5 @@
+.bbb-field .bbb-textarea {
+  min-height: var(--bbb-textarea-height);
+  resize: vertical;
+  line-height: var(--bbb-line-height-body);
+}

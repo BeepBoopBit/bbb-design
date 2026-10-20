@@ -1,0 +1,15 @@
+.bbb-dropdown-menu {
+  min-width: var(--bbb-menu-min-width);
+}
+.bbb-dropdown-menu__separator {
+  height: var(--bbb-border-width);
+  margin: var(--bbb-space-1) var(--bbb-space-2);
+  background: var(--bbb-color-border);
+}
+.bbb-option--danger,
+.bbb-option--danger[data-focused] {
+  color: var(--bbb-color-danger);
+}
+.bbb-option--danger[data-focused] {
+  background: var(--bbb-color-danger-subtle);
+}

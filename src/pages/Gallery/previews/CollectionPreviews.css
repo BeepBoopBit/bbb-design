@@ -1,0 +1,9 @@
+.gallery-card__preview--table > .content-preview {
+  max-width: var(--bbb-collection-preview-width);
+}
+.gallery-card__preview--table .bbb-select {
+  width: min(100%, var(--bbb-preview-control-width));
+}
+.gallery-card__preview--pagination > .content-preview {
+  align-content: center;
+}

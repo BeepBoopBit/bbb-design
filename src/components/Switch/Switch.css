@@ -1,0 +1,94 @@
+.bbb-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bbb-space-6);
+  min-height: var(--bbb-control-height);
+  cursor: pointer;
+}
+
+.bbb-switch__copy {
+  display: grid;
+  flex: 1 1 var(--bbb-list-row-content-width);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  gap: var(--bbb-space-half);
+}
+
+.bbb-switch__label {
+  font-size: var(--bbb-font-size-md);
+  font-weight: var(--bbb-font-weight-medium);
+}
+
+.bbb-switch__description {
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-xs);
+}
+
+.bbb-switch__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--bbb-switch-width);
+  min-height: var(--bbb-control-height);
+}
+
+.bbb-switch__control input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: var(--bbb-opacity-hidden);
+  cursor: inherit;
+}
+
+.bbb-switch__track {
+  display: flex;
+  align-items: center;
+  width: var(--bbb-switch-width);
+  height: var(--bbb-switch-height);
+  padding: var(--bbb-switch-inset);
+  border-radius: var(--bbb-radius-full);
+  background: var(--bbb-color-border-strong);
+  pointer-events: none;
+  transition: background-color var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+
+.bbb-switch__track::after {
+  content: '';
+  width: var(--bbb-switch-thumb-size);
+  height: var(--bbb-switch-thumb-size);
+  border-radius: var(--bbb-radius-full);
+  background: var(--bbb-color-surface);
+  box-shadow: var(--bbb-shadow-control);
+  transition: transform var(--bbb-duration-fast) var(--bbb-easing-standard);
+}
+
+.bbb-switch__control input:checked + .bbb-switch__track {
+  background: var(--bbb-color-accent);
+}
+
+.bbb-switch__control input:checked + .bbb-switch__track::after {
+  transform: translateX(
+    calc(var(--bbb-switch-width) - var(--bbb-switch-thumb-size) - var(--bbb-switch-inset) * 2)
+  );
+}
+
+.bbb-switch__control input:focus-visible + .bbb-switch__track {
+  outline: var(--bbb-focus-width) solid var(--bbb-color-focus);
+  outline-offset: var(--bbb-focus-offset);
+}
+
+.bbb-switch:has(input:disabled) {
+  opacity: var(--bbb-opacity-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bbb-switch__track::after {
+    transition: none;
+  }
+}

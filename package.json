@@ -1,0 +1,59 @@
+{
+  "name": "bbb-design",
+  "private": true,
+  "version": "0.2.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "playwright test --project=chromium",
+    "test:browsers": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:visual": "playwright test --project=visual",
+    "test:container": "bash scripts/test-container.sh",
+    "tokens:sync": "node src/foundations/sync-tokens.mjs",
+    "prebuild": "npm run tokens:sync",
+    "build:registry": "node scripts/build-registry.mjs",
+    "test:registry": "node --test tests/registry/*.test.mjs",
+    "test:copy": "node scripts/test-copy.mjs",
+    "copy:source": "node scripts/copy-source.mjs",
+    "cli": "node packages/cli/bin/bbb-ui.mjs",
+    "test:cli": "node --test tests/cli/*.test.mjs",
+    "test:cli:consumer": "node scripts/test-copy.mjs --packed-cli",
+    "pack:cli": "node scripts/pack-cli.mjs",
+    "release:freeze": "node scripts/source-releases.mjs",
+    "test:release": "node --test tests/release/*.test.mjs",
+    "test:release:consumer": "node scripts/test-copy.mjs --release-candidate",
+    "release:prepare": "node scripts/prepare-release.mjs",
+    "postbuild": "node scripts/finish-site.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "test:hosting": "playwright test --config playwright.hosting.config.ts",
+    "verify:deployment": "node scripts/check-hosting.mjs"
+  },
+  "dependencies": {
+    "@internationalized/date": "^3.12.4",
+    "lucide-react": "1.57.0",
+    "react-aria-components": "^1.21.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-markdown": "^10.1.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "wrangler": "4.151.3"
+  },
+  "description": "BBB source components: copy, customize, and own your React interface.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/cli"
+  ]
+}

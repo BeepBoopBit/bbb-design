@@ -1,0 +1,38 @@
+.bbb-badge {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bbb-space-2);
+  padding: var(--bbb-space-1) var(--bbb-space-3);
+  border-radius: var(--bbb-radius-full);
+  font-size: var(--bbb-font-size-xs);
+  font-weight: var(--bbb-font-weight-medium);
+  line-height: var(--bbb-line-height-body);
+}
+
+.bbb-badge--neutral {
+  color: var(--bbb-color-text-secondary);
+  background: var(--bbb-color-surface-muted);
+}
+.bbb-badge--accent {
+  color: var(--bbb-color-accent-text);
+  background: var(--bbb-color-accent-subtle);
+}
+.bbb-badge--success {
+  color: var(--bbb-color-success);
+  background: var(--bbb-color-success-subtle);
+}
+.bbb-badge--warning {
+  color: var(--bbb-color-warning);
+  background: var(--bbb-color-warning-subtle);
+}
+
+.bbb-badge__dot {
+  flex-shrink: 0;
+  width: var(--bbb-indicator-size);
+  height: var(--bbb-indicator-size);
+  border-radius: var(--bbb-radius-full);
+  background: currentColor;
+}

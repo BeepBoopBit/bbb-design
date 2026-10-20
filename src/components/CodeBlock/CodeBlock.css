@@ -1,0 +1,4 @@
+.bbb-code-block { min-width: 0; max-width: 100%; overflow: hidden; border: var(--bbb-border-width) solid var(--bbb-color-border); border-radius: var(--bbb-radius-md); background: var(--bbb-color-surface-inset); }
+.bbb-code-block__header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--bbb-space-3); padding: var(--bbb-space-3); font-size: var(--bbb-font-size-sm); color: var(--bbb-color-text-secondary); }
+.bbb-code-block pre { margin: 0; padding: var(--bbb-space-4); overflow: auto; max-height: var(--bbb-search-results-height); font-family: var(--bbb-font-mono); font-size: var(--bbb-font-size-md); line-height: var(--bbb-line-height-body); }
+.bbb-code-block pre:focus-visible { outline: var(--bbb-focus-width) solid var(--bbb-color-focus); outline-offset: calc(-1 * var(--bbb-focus-width)); }

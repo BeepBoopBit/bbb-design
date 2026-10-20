@@ -1,0 +1,2 @@
+.bbb-keyboard-shortcut { display: inline-flex; flex-wrap: wrap; gap: var(--bbb-space-1); color: var(--bbb-color-text-secondary); }
+.bbb-keyboard-shortcut kbd { font-family: var(--bbb-font-mono); font-size: var(--bbb-font-size-xs); line-height: var(--bbb-line-height-body); padding: var(--bbb-space-half) var(--bbb-space-1); border: var(--bbb-border-width) solid var(--bbb-color-border); border-radius: var(--bbb-radius-sm); background: var(--bbb-color-surface-inset); }

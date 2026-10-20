@@ -1,0 +1,10 @@
+.bbb-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bbb-space-2);
+  min-width: 0;
+  max-width: 100%;
+}
+.bbb-toolbar > * { max-width: 100%; overflow-wrap: anywhere; }
+.bbb-toolbar[data-orientation='vertical'] { flex-direction: column; align-items: stretch; }
