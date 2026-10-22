@@ -274,8 +274,11 @@ as missing packages. Stable CLI versions publish under `latest`; prereleases use
 `next`. Existing versions and dist-tags are never changed by the skip path.
 
 npm can accept an upload and report that the package is still being processed.
-The script waits roughly five minutes for public availability and checks integrity
-before reporting verified publication. If that wait expires, the accepted upload
+The script waits roughly five minutes for the version to appear in npm's installer
+metadata and checks integrity before reporting verified publication. A version's
+individual endpoint can appear before installers can resolve it. The smoke check
+also revalidates npm's cached metadata with `--prefer-online`.
+If that wait expires, the accepted upload
 may still be processing. Check its status on npm and continue verification with:
 
 ```sh

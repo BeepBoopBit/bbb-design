@@ -17,7 +17,7 @@ async function candidate(t) {
   const cli = { name: CLI_NAME, version: CLI_VERSION, tarball, integrity: `sha512-${createHash('sha512').update(bytes).digest('base64')}` }
   const manifest = { schemaVersion: 1, site: SITE_URL, registry: DEFAULT_REGISTRY_URL, cli, files: await fileHashes(directory) }
   await writeFile(resolve(directory, 'release.json'), JSON.stringify(manifest))
-  const published = { name: cli.name, version: cli.version, dist: { integrity: cli.integrity } }
+  const published = { name: cli.name, versions: { [cli.version]: { name: cli.name, version: cli.version, dist: { integrity: cli.integrity } } } }
   return { directory, cli, published, manifest }
 }
 
@@ -25,13 +25,14 @@ test('publishes the checked tarball only for a missing version, then verifies np
   const { directory, cli, published } = await candidate(t)
   const commands = []
   const lookups = []
-  const registryFetch = async url => {
+  const registryFetch = async (url, options) => {
     lookups.push(String(url))
+    assert.equal(options.headers.Accept, 'application/vnd.npm.install-v1+json')
     return commands.length ? Response.json(published) : new Response('', { status: 404 })
   }
   assert.deepEqual(await publishCLI({ directory, registryFetch, run: args => commands.push(args) }), { published: true })
   assert.deepEqual(commands, [['publish', resolve(directory, cli.tarball), '--access', 'public', '--registry', 'https://registry.npmjs.org/', '--tag', 'latest', '--ignore-scripts']])
-  assert.deepEqual(lookups, Array(2).fill(`https://registry.npmjs.org/${encodeURIComponent(CLI_NAME)}/${CLI_VERSION}`))
+  assert.deepEqual(lookups, Array(2).fill(`https://registry.npmjs.org/${encodeURIComponent(CLI_NAME)}`))
 })
 
 test('reruns and source-only releases skip a CLI version with identical integrity', async t => {
@@ -42,7 +43,7 @@ test('reruns and source-only releases skip a CLI version with identical integrit
 
 test('an existing version with different contents requires a CLI version bump', async t => {
   const { directory, published } = await candidate(t)
-  published.dist.integrity = 'sha512-different'
+  published.versions[CLI_VERSION].dist.integrity = 'sha512-different'
   await assert.rejects(publishCLI({ directory, registryFetch: async () => Response.json(published),
     run: () => assert.fail('Conflicting bytes must not be published') }), /already exists with different contents.*Bump the CLI/)
 })
@@ -90,7 +91,7 @@ test('accepted publications can take several minutes to appear without being sub
   let commands = 0
   let elapsed = 0
   const result = await publishCLI({ directory,
-    registryFetch: async () => elapsed >= 120000 ? Response.json(published) : new Response('', { status: 404 }),
+    registryFetch: async () => Response.json(elapsed >= 120000 ? published : { name: CLI_NAME, versions: {} }),
     run: () => { commands++ }, wait: async delay => { elapsed += delay } })
   assert.deepEqual(result, { published: true })
   assert.equal(commands, 1)
@@ -120,7 +121,15 @@ test('verify-only checks integrity and rejects contradictory dry-run options', a
   const { directory, published } = await candidate(t)
   const run = () => assert.fail('Verification must not publish')
   assert.deepEqual(await publishCLI({ directory, verifyOnly: true, registryFetch: async () => Response.json(published), run }), { published: false, verified: true })
-  published.dist.integrity = 'sha512-different'
+  published.versions[CLI_VERSION].dist.integrity = 'sha512-different'
   await assert.rejects(publishCLI({ directory, verifyOnly: true, registryFetch: async () => Response.json(published), run }), /different contents/)
   await assert.rejects(publishCLI({ directory, verifyOnly: true, dryRun: true, run }), /Choose either/)
+})
+
+test('invalid installer metadata cannot be treated as an absent package version', async t => {
+  const { directory } = await candidate(t)
+  for (const versions of [undefined, null, []]) {
+    await assert.rejects(publishCLI({ directory, registryFetch: async () => Response.json({ name: CLI_NAME, versions }),
+      run: () => assert.fail('Malformed installer metadata must block publication') }), /invalid installer metadata/)
+  }
 })

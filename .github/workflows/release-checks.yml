@@ -118,4 +118,4 @@ jobs:
           cli_version="$(node -p "require('./packages/cli/package.json').version")"
           consumer_directory="$(mktemp -d)"
           cd "$consumer_directory"
-          npm exec --yes --registry=https://registry.npmjs.org/ --package="@beepboopbit/ui@$cli_version" -- bbb-ui list
+          npx --yes --prefer-online --registry=https://registry.npmjs.org/ "@beepboopbit/ui@$cli_version" list

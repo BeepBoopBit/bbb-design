@@ -13,11 +13,17 @@ import { projectRoot } from './registry.mjs'
 const npmRegistry = 'https://registry.npmjs.org/'
 
 async function publishedPackage(cli, registryFetch) {
-  const url = new URL(`${encodeURIComponent(cli.name)}/${encodeURIComponent(cli.version)}`, npmRegistry)
-  const response = await registryFetch(url, { headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' }, signal: AbortSignal.timeout(15000) })
+  // npm's version endpoint can become available before its installable metadata.
+  // Wait for the same package document and representation used by npm exec/npx.
+  const url = new URL(encodeURIComponent(cli.name), npmRegistry)
+  const response = await registryFetch(url, { headers: { Accept: 'application/vnd.npm.install-v1+json', 'Cache-Control': 'no-cache' }, signal: AbortSignal.timeout(15000) })
   if (response.status === 404) return undefined
   assert.equal(response.status, 200, `npm registry lookup failed: HTTP ${response.status}. Publication was not assumed safe.`)
-  const metadata = await response.json()
+  const document = await response.json()
+  assert.equal(document.name, cli.name)
+  assert.ok(document.versions && typeof document.versions === 'object' && !Array.isArray(document.versions), 'npm registry returned invalid installer metadata; publication stopped.')
+  if (!Object.hasOwn(document.versions, cli.version)) return undefined
+  const metadata = document.versions[cli.version]
   assert.equal(metadata.name, cli.name)
   assert.equal(metadata.version, cli.version)
   assert.equal(metadata.dist?.integrity, cli.integrity, `${cli.name}@${cli.version} already exists with different contents. Bump the CLI package version and prepare a new release.`)
