@@ -2,15 +2,16 @@
 
 The public home is **https://ui.beepboopbit.com**. Gallery, the getting-started
 guide, and source JSON share one static site. The CLI's default registry is
-**https://ui.beepboopbit.com/r/**. The site and registry are live. npm publication
-of the CLI is still pending.
+**https://ui.beepboopbit.com/r/**. The site, registry, and npm CLI are live.
+The release workflow publishes new CLI versions through npm trusted publishing
+after deployment verification.
 
 The current repository versions are:
 
 | Artifact | Identity | Version |
 | --- | --- | --- |
-| Editable source | Root `bbb-design` package version | `0.2.1` |
-| Installer | npm `@beepboopbit/ui`, command `bbb-ui` | `0.1.1` |
+| Editable source | Root `bbb-design` package version | `0.2.3` |
+| Installer | npm `@beepboopbit/ui`, command `bbb-ui` | `0.1.2` |
 
 Source 0.2.0 remains frozen and available on the live registry. Repository changes
 reach the site only after a release tag is pushed and its workflow succeeds.
@@ -62,7 +63,7 @@ compares both built registries with all verified snapshots, and inspects the act
 npm pack file list and executable mode. It writes ignored review files:
 
 - `.release/site/`: the complete static site, including all `/r/` versions.
-- `.release/beepboopbit-ui-0.1.1.tgz`: the installer tarball (version follows its package).
+- `.release/beepboopbit-ui-0.1.2.tgz`: the installer tarball (version follows its package).
 - `.release/source/`: frozen snapshots and checksum locks for archival.
 - `.release/wrangler.jsonc`: the checked Cloudflare deployment configuration.
 - `.release/release.json`: identities, npm integrity, and SHA-256 hashes of all
@@ -146,16 +147,21 @@ contents. Browser diagnostics are uploaded separately. The tag's run then deploy
 that exact artifact to Cloudflare and verifies the public
 site. The deployment job verifies the candidate's hashes and uploads it with the
 pinned Wrangler dependency without rebuilding. Credentials are supplied only to
-the deployment step. Release runs share one concurrency group so another tag
-cannot cancel an active release or deploy alongside it.
+the deployment step. Once trusted publishing is configured and enabled as
+described below, deployment verification allows the publish job to run. That job
+downloads the same candidate, verifies its hashes and CLI integrity, and publishes
+its tarball to npm without rebuilding. It then runs the exact published CLI's
+`list` command outside the repository against the live default source registry.
+Release runs share one concurrency group so another tag cannot cancel an active
+release, deploy alongside it, or publish concurrently.
 
 Run local checks before pushing ordinary commits. When a reviewed commit is ready
 to deploy, push it to `main`, then create and push a version tag pointing to it:
 
 ```sh
 git push origin main
-git tag -a v0.2.1 -m "Release source 0.2.1"
-git push origin v0.2.1
+git tag -a v0.2.3 -m "Release source 0.2.3 and CLI 0.1.2"
+git push origin v0.2.3
 ```
 
 Creating a local tag does not deploy. Pushing the tag starts all release checks
@@ -189,20 +195,106 @@ uploads publicly unless `-- --dry-run` is supplied.
 
 ## npm publication
 
-Website deployment and npm publication are separate. A release tag deploys the site;
-the workflow does not publish npm packages. Before the CLI's first publication:
+Once trusted publishing is configured and the `NPM_TRUSTED_PUBLISHING` repository
+variable is `true`, pushing a release tag runs **checks → Cloudflare deployment
+and verification → npm publication** in `.github/workflows/release-checks.yml`.
+Until then, publication is skipped while checks and website deployment still run.
+A failed check or deployment prevents publication. Only `@beepboopbit/ui` is
+published; the root package stays private. The CLI version comes from
+`packages/cli/package.json`, independently of the source version used for the Git tag.
 
-1. Review the publication notice in the README, onboarding guide, and CLI README.
-   Remove it for launch, bump the source and CLI versions where their shipped
-   documentation changes, freeze the source, and repeat checks for that candidate.
-2. Push the reviewed release tag. Confirm the workflow's HTTPS verification passes,
-   including all versioned registry paths. Exercise default-registry
-   `list`, `init`, and `add` in a disposable supported app before publishing npm.
-3. Confirm npm account access to the `@beepboopbit` scope and publication of
-   `@beepboopbit/ui`. Scope ownership is not established by local preparation.
-   Publish the exact reviewed tarball only after the registry is live and verified.
-4. Exercise the documented `npx @beepboopbit/ui@latest` installation in a separate
-   supported app against the public default registry.
+The publish job uses Node 24 and pinned npm 11.19.0, with `id-token: write` limited
+to that job. npm trusted publishing authenticates through GitHub OIDC. The job
+does not read an npm token secret. First publication is interactive because
+[npm requires the package to exist before configuring a trusted publisher](https://docs.npmjs.com/cli/v11/commands/npm-trust/).
+
+### First publication with interactive 2FA
+
+1. Sign in to npm and confirm publishing access to the `@beepboopbit` scope.
+   Create the npm organization if needed and enable account 2FA.
+2. Review the publication notices in the README, onboarding guide, and CLI README.
+   Remove them for launch, bump source and CLI versions where their shipped
+   documentation changes, freeze source, and run release preparation and checks.
+   Preserve existing frozen releases.
+3. Leave `NPM_TRUSTED_PUBLISHING` unset. Commit the reviewed release and push its
+   version tag as described above. Wait for its checks and deployment verification
+   to pass; the npm job will be skipped. Download that run's
+   `bbb-release-candidate` artifact from GitHub Actions.
+4. Check out that exact tag locally and run `npm ci`. Extract the artifact's
+   contents into `.release/`, with `release.json` directly inside that directory.
+   Publish from an interactive terminal:
+
+   ```sh
+   npm login --registry=https://registry.npmjs.org/
+   node scripts/publish-cli.mjs
+   ```
+
+   Complete npm's browser and 2FA prompts. The script verifies the candidate's
+   hashes and publishes its exact checked tarball, then verifies npm integrity.
+   Keep 2FA enabled. No npm publishing token is needed in GitHub.
+5. In a separate supported app, exercise the public install:
+
+   ```sh
+   npx @beepboopbit/ui@latest init
+   npx @beepboopbit/ui@latest add button text-field dialog
+   ```
+
+### Subsequent releases with trusted publishing
+
+Once `@beepboopbit/ui` exists, open its npm **Settings → Trusted publishing** and
+add a GitHub Actions publisher with these case-sensitive values:
+
+| Field | Value |
+| --- | --- |
+| Organization or user | `BeepBoopBit` |
+| Repository | `bbb-design` |
+| Workflow filename | `release-checks.yml` |
+| Environment name | Leave empty; the publish job uses no GitHub environment |
+| Allowed actions | Enable direct `npm publish` |
+
+Use only the filename, not `.github/workflows/release-checks.yml`. If the repository
+is moved, update its package repository metadata and the npm publisher settings.
+In GitHub's repository **Settings → Secrets and variables → Actions → Variables**,
+add the repository variable `NPM_TRUSTED_PUBLISHING` with the value `true`.
+This enables the publish job for subsequent release tags. If an `NPM_TOKEN` secret
+or publishing token was created for the previous setup, remove the secret and
+revoke the token; this workflow does not use it. npm's package publishing-access
+setting can be set to **Require two-factor authentication and disallow tokens**;
+trusted publishing continues to work with that setting.
+
+New trusted-publisher configurations must complete a successful
+publish within two days; use a new CLI version to validate the configuration.
+An already-published version is skipped and will not validate a new publisher.
+See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+
+Later source-only releases and workflow reruns skip npm publication when that CLI
+version already has the exact checked integrity. A version with different contents
+fails with instructions to bump the CLI version; lookup failures are not treated
+as missing packages. Stable CLI versions publish under `latest`; prereleases use
+`next`. Existing versions and dist-tags are never changed by the skip path.
+
+npm can accept an upload and report that the package is still being processed.
+The script waits roughly five minutes for public availability and checks integrity
+before reporting verified publication. If that wait expires, the accepted upload
+may still be processing. Check its status on npm and continue verification with:
+
+```sh
+node scripts/publish-cli.mjs --verify-only
+```
+
+This checks the same candidate and waits for its public npm version without
+submitting another publication. Do not rerun the publish command while an
+accepted upload is still processing.
+
+For a local preview of the publication step after `release:prepare`, run:
+
+```sh
+node scripts/publish-cli.mjs --dry-run
+```
+
+This verifies the staged files, checks npm for the version, and runs `npm publish
+--dry-run` only if it is absent. It does not test trusted-publisher authorization;
+that is checked by a real publication from the configured GitHub workflow.
 
 For rollback, restore a known checked Cloudflare deployment or redeploy its
 archived candidate with the complete historical registry. Discovery can point at

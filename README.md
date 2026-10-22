@@ -10,11 +10,9 @@ Copy the source into your app, customize it, and own the files.
 
 Use Node.js 24 and npm with an existing React 19.2.x, TypeScript 6.x, Vite app
 using plain CSS. [Create an app first](docs/ADOPTION.md#create-an-app) if needed.
-Run the CLI inside your app; adopting BBB does not require cloning this repository.
-
-**The npm CLI is not published yet.** These commands become available once
-`@beepboopbit/ui` is published. The [site and source registry](https://ui.beepboopbit.com)
-are live; Gallery's **View code** already provides source and bundle downloads.
+Run the published installer inside your app. The CLI downloads components from
+the [live source registry](https://ui.beepboopbit.com/r/manifest.json); no BBB
+repository clone is needed:
 
 ```sh
 npx @beepboopbit/ui@latest init --dry-run
@@ -31,8 +29,11 @@ not a runtime dependency, and there is no `bbb-design` component package to inst
 
 `--dry-run` previews changes. Existing edits are preserved, and `bbb.json` plus the
 copied `.bbb-source.json` record keep later additions on the same source release.
-See the [adoption guide](docs/ADOPTION.md) for the first component, customization,
-manual copying, and updates.
+Follow [Get started](https://ui.beepboopbit.com/getting-started) or the
+[adoption guide](docs/ADOPTION.md) for exact directory choices, stylesheet and
+ThemeProvider setup, a working first component, and production builds. Gallery's
+**View code** also offers manual bundle downloads without a repository clone.
+`npx` runs the installer without adding it as an app dependency.
 
 ## Documentation
 
@@ -231,7 +232,9 @@ are split into a separate production chunk for caching.
 `npm run release:prepare` stages the site, source registry, and CLI tarball locally.
 GitHub Actions runs release, browser, visual, hosting, and packed-consumer checks
 only when a Git tag is pushed. Passing checks deploy that tag's checked site to
-`ui.beepboopbit.com`. Branch pushes and pull requests do not run the workflow.
+`ui.beepboopbit.com`. Once npm trusted publishing is configured and enabled, new
+CLI versions publish after deployment verification. Branch pushes and pull requests
+do not run the workflow.
 See [releases and deployment](docs/RELEASING.md) before pushing a release tag.
 
 The open Combobox scan excludes React Aria's documented

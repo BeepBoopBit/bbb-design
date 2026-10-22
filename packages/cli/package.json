@@ -1,16 +1,39 @@
 {
   "name": "@beepboopbit/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Copy BBB React components into your app, then edit and own the source.",
   "homepage": "https://ui.beepboopbit.com",
-  "keywords": ["bbb", "react", "components", "cli", "copy-and-edit"],
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeepBoopBit/bbb-design.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "bbb",
+    "react",
+    "components",
+    "cli",
+    "copy-and-edit"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "bin": {
     "bbb-ui": "bin/bbb-ui.mjs"
   },
-  "files": ["bin", "src", "LICENSE", "README.md"],
-  "engines": { "node": ">=24" },
+  "files": [
+    "bin",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
   "license": "MIT",
-  "dependencies": { "semver": "7.8.5" }
+  "dependencies": {
+    "semver": "7.8.5"
+  }
 }

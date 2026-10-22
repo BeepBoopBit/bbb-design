@@ -1,18 +1,30 @@
 # Get started
 
-BBB is source you copy and edit. There is no `bbb-design` component package to
-install. You own the copied React/TypeScript and CSS files and can change their
-styles, props, text, and behavior in your project.
+Add BBB to your React app, wrap it in ThemeProvider, and use your first component.
+You own the copied TypeScript and CSS files and can edit them in your project.
 
-The supported starting point is React and React DOM 19.2.x, TypeScript 6.x, Vite,
-and plain CSS. The CLI uses Node.js 24 and npm. Other frameworks,
-including Next.js, need separate compatibility checks before support is promised.
-React Aria, Lucide, and date utilities remain third-party packages where required.
+The [Gallery](https://ui.beepboopbit.com/gallery),
+[source registry](https://ui.beepboopbit.com/r/manifest.json), and
+[npm installer](https://www.npmjs.com/package/@beepboopbit/ui) are live.
+Run the installer with `npx` inside your app, or [copy a downloaded bundle](#copy-a-downloaded-bundle).
 
-The [Gallery and source registry](https://ui.beepboopbit.com) are live. The npm CLI
-is not published yet; the `npx` commands below describe installation once
-`@beepboopbit/ui` is published. Run them inside your own app. You do not need to
-clone the BBB repository or build the registry.
+Before you begin, install Node.js 24 and npm. Your app must use React and
+React DOM 19.2.x, TypeScript 6.x, Vite, and plain CSS. Next.js and other frameworks
+need separate compatibility checks. The installer adds required packages such as
+React Aria, Lucide, and date utilities automatically.
+
+## How the deployed site fits in
+
+- **Browse:** use [Gallery](https://ui.beepboopbit.com/gallery) to try a component.
+  Open **View code** for its actual files, dependencies, and source bundle download.
+- **Install:** the CLI reads `https://ui.beepboopbit.com/r/` and copies the selected
+  release into your app's `src/bbb/` directory. You do not need to build or host a registry.
+- **Use:** import those local files in your React app. Your production build
+  includes them; it does not fetch component code from the BBB site at runtime.
+
+The published npm package supplies the installer. There is no
+`bbb-design` component package to install, and the deployed Gallery is not your
+application's backend.
 
 ## Create an app
 
@@ -27,82 +39,93 @@ npm install
 
 Already have a supported app? Open a terminal in that app's root instead.
 
+## Install the CLI
+
+Keep your terminal in your app's root. `npx @beepboopbit/ui@latest` downloads and
+runs the installer without adding it as an app dependency. No global installation
+or BBB repository clone is needed. Use `--cwd /path/to/my-app` if you want to run
+the installer from another directory.
+
 ## Initialize BBB
 
-From your app's root, preview setup and then apply it:
+From your app's root, preview setup against the deployed registry, then apply it:
 
 ```sh
 npx @beepboopbit/ui@latest init --dry-run
 npx @beepboopbit/ui@latest init
 ```
 
-`init` copies foundations and ThemeProvider, adds an import to the app's detected
-CSS entrypoint, installs missing packages, and prints a provider snippet. Place
-that provider in your app yourself. The default preserves global page styling;
-use `--baseline` on first initialization to opt into the whole-app baseline.
-Use `--dir src/ui` or `--stylesheet src/app.css` when the defaults do not fit.
-Use `--cwd /path/to/my-app` to select an app from another directory.
+The dry run prints the files and packages it would add without changing your app.
+After the second command, check your app for:
+
+- `src/bbb/`: foundations, ThemeProvider, supporting source, and license notices.
+- `bbb.json`: the saved registry URL, source directory, stylesheet, and baseline choice.
+- `src/bbb/.bbb-source.json`: the selected source release and copied-file record.
+- An import at the top of your existing stylesheet, normally `src/index.css`:
+
+```css
+@import "./bbb/foundations/styles.css";
+```
+
+The CLI installs missing runtime packages and prints a ThemeProvider example.
+It does not wrap your app for you; do that in the first-component step below.
+Keep the app's existing `import './index.css'` in `src/main.tsx`.
+
+The default preserves your global page styling. Use `--baseline` on first
+initialization to opt into BBB's whole-app baseline. Use `--dir src/ui` to change
+the copied directory or `--stylesheet src/app.css` to select another existing,
+imported stylesheet; adjust the later import paths to match.
 
 ## Add components
 
-Choose components inside your app:
+Still in your app's root, list components and add your first ones:
 
 ```sh
 npx @beepboopbit/ui@latest list
 npx @beepboopbit/ui@latest add button text-field dialog
 ```
 
-`add` copies the complete closure for all requested items, checking the whole batch
-before writing. Both commands support `--dry-run` and `--no-install`. Existing
-compatible dependency versions and ranges are preserved; incompatible declarations
-stop the command for review. npm failures leave source, CSS, and configuration
-untouched, though npm may have changed package/lockfiles.
+These commands reuse the deployed registry saved by `init`. `add` copies all
+required source and CSS, including shared components, and installs missing
+packages. Add `--dry-run` to preview an addition, or `--no-install` to copy files
+and print the npm commands to run yourself in your app.
 
-Commit `bbb.json` and the copied source record. The record pins additions to the
-same release. Local registry paths in configuration are relative to the app;
-explicit `--registry` paths are relative to the invoking directory. HTTP(S) base
-URLs and `BBB_UI_REGISTRY` are supported. `--release` selects an exact version for
-a new initialization. There is no automatic update or overwrite command.
+In Gallery, a component's **Setup and dependencies** section also shows its CLI
+name. Use that name when adding more components.
 
-The installer package is `@beepboopbit/ui`, with the `bbb-ui` executable. `npx`
-runs it without adding the CLI to your app's dependencies. Its default registry
-is `https://ui.beepboopbit.com/r/`. Registry selection uses `--registry`, then
-`BBB_UI_REGISTRY`, then the app's saved `bbb.json`, then the public default.
+Commit `bbb.json`, `src/bbb/` including `.bbb-source.json` and license notices,
+and your app's package and lockfile changes. Later additions use that recorded
+source release even when the deployed site publishes a newer one.
 
 ## Use your first component
 
-The CLI adds component essentials to your stylesheet. For manual copying, import
-them once in your application’s entry point:
+Open `my-app/src/App.tsx` in your editor and replace its contents with:
 
 ```tsx
-import './bbb/foundations/styles.css'
-```
-
-This provides namespaced tokens, component box sizing, focus, icon sizing, and
-visually hidden utilities. Your app keeps its own body margins, typography, and
-background. Wrap the BBB area in ThemeProvider for its typography, identity,
-locale, direction, and overlays. For a first example, replace your app's
-`src/App.tsx` with:
-
-```tsx
+import { useState } from 'react'
 import { Button } from './bbb/components/Button/Button'
 import { ThemeProvider } from './bbb/components/ThemeProvider/ThemeProvider'
 
 export default function App() {
+  const [message, setMessage] = useState('Ready to save.')
+
   return (
     <ThemeProvider mode="system" locale="en-US">
-      <Button onPress={() => console.log('Saved')}>Save changes</Button>
+      <Button onPress={() => setMessage('Changes saved.')}>Save changes</Button>
+      <p role="status">{message}</p>
     </ThemeProvider>
   )
 }
 ```
 
-To adopt BBB’s whole-app baseline manually, also copy the `baseline` bundle and import
-`./bbb/foundations/baseline.css` instead of `styles.css`. That explicitly applies
-page typography, background, margins, global box sizing, and focus styling.
+The stylesheet import from `init` supplies tokens, focus, and shared utilities.
+ThemeProvider supplies typography, appearance, locale, direction, and overlay
+support. Wrap your app or the area using BBB once, keeping fields and dialogs
+inside that provider. The example follows the system's light/dark preference;
+set `mode="light"` or `mode="dark"` to choose explicitly.
 
-Add fields and overlays with the CLI or by copying `text-field.json` and `dialog.json`.
-Install their listed packages if needed, then reference local files:
+You also installed TextField and Dialog. Import them from the copied files, then
+place the dialog inside the same ThemeProvider:
 
 ```tsx
 import { TextField } from './bbb/components/TextField/TextField'
@@ -125,8 +148,61 @@ From your app's root, start its development server:
 npm run dev
 ```
 
-Open the URL printed by Vite. You should see your BBB button. Edit the copied
-component, its CSS, or a shared token in your app to try your own changes.
+Open the URL printed by Vite. You should see **Save changes** and **Ready to save.**
+Press the button; the message should become **Changes saved.** Edit a copied
+component or its CSS to see the change in your own app.
+
+Vite's starter styles may still center the page or set a demo background. Remove
+unwanted demo rules from your app's CSS while keeping the BBB stylesheet import.
+
+To check the production build, stop the dev server and run from your app's root:
+
+```sh
+npm run build
+npm run preview
+```
+
+Open the preview URL and check the button again. Deploy your app's `dist/`
+directory to your usual static host. The BBB components are part of that build;
+the BBB repository and registry are only needed when installing or adding source.
+
+## If setup fails
+
+- **npm reports 404 for `@beepboopbit/ui`:** check the package name and your npm
+  registry settings. The public package is on `https://registry.npmjs.org/`.
+- **No package.json or unsupported project:** create the app first and point
+  `--cwd` at its root. Check its React, React DOM, and TypeScript declarations
+  against the prerequisites; the installer does not upgrade them for you.
+- **Stylesheet not found:** keep a CSS file imported by `src/main.tsx` and select
+  it explicitly with `--stylesheet src/index.css` on `init`.
+- **The button has no BBB styling:** check that your app imports its entry
+  stylesheet, that the BBB import is at the top, and that the button is inside
+  ThemeProvider. A copied `.tsx` file alone is not the complete component.
+- **Registry unavailable:** check that the [public manifest](https://ui.beepboopbit.com/r/manifest.json)
+  loads. The registry base is `https://ui.beepboopbit.com/r/`; pass the base URL,
+  rather than a Gallery page or an individual JSON file, to `--registry`.
+- **Existing-file or dependency conflict:** review the reported files or package
+  versions. The installer preserves edits and stops before writing a conflicting
+  batch. If npm fails, inspect package and lockfile changes before retrying.
+
+## Use the repository installer
+
+Maintainers can run the installer from a local checkout against the deployed
+registry. With Git installed and your app at `../my-app` relative to the checkout:
+
+```sh
+git clone https://github.com/BeepBoopBit/bbb-design.git bbb-design
+cd bbb-design
+npm ci
+npm run cli -- init --cwd ../my-app --registry https://ui.beepboopbit.com/r/ --dry-run
+npm run cli -- init --cwd ../my-app --registry https://ui.beepboopbit.com/r/
+npm run cli -- add button text-field dialog --cwd ../my-app
+```
+
+Replace `../my-app` with your app's actual path. Then follow the same ThemeProvider
+and first-component steps above. The local and published installers use the same
+source registry and copied-file format.
+See the [CLI reference](../packages/cli/README.md) for all options.
 
 ## Customize owned source
 
@@ -165,16 +241,29 @@ a major version bump. Compatible additions use minor versions; fixes use patches
 
 ## Copy a downloaded bundle
 
-Open a component in [Gallery](https://ui.beepboopbit.com/gallery), choose **View
-code**, and download its JSON bundle. The bundle includes implementation files,
-styles, supporting files, dependencies, license notices, and setup instructions.
-You can copy these files manually before the npm CLI is available.
+You can also install source from the deployed Gallery without cloning the repository:
 
-Copy every file's `content` into its relative target under `src/bbb/`, and install
-the listed `dependencies` in your app. Copy the ThemeProvider bundle too, then
-follow the stylesheet and provider setup above. Preserve `LICENSE` and
-`LICENSE-LUCIDE`. Copying one component file may leave out shared controls,
-theme/locale support, or CSS that it needs.
+1. Open [Button](https://ui.beepboopbit.com/gallery?item=button), choose **View code**,
+   then **Download source bundle**. This downloads JSON containing the actual
+   files, supporting source, CSS, dependencies, and notices.
+2. Download [ThemeProvider](https://ui.beepboopbit.com/gallery?item=themes) the same
+   way. Keep bundles on the same `meta.bbb.release` version.
+3. For each entry in the bundle's `files` array, write its `content` to its
+   `target` relative to your app's root, removing the leading `~/`. For example,
+   `~/src/bbb/components/Button/Button.tsx` becomes
+   `my-app/src/bbb/components/Button/Button.tsx`. Reuse identical shared files.
+4. In your app's root, run the `npm install ...` command under **Setup and
+   dependencies** for each bundle. It uses the exact versions in `dependencies`.
+5. Import `./bbb/foundations/styles.css` once in `src/main.tsx`, then follow
+   [Use your first component](#use-your-first-component) and preview your app.
+
+Keep every file, including `LICENSE` and `LICENSE-LUCIDE`. Copying only the
+selected `.tsx` file or the Gallery preview can omit required source and styles.
+Manual copying does not create the CLI's project configuration or release record;
+continue managing these files manually.
+
+For the whole-app baseline, also copy the `baseline` bundle and import
+`./bbb/foundations/baseline.css` instead of `styles.css`.
 
 Keep the relative folders intact. Moving the whole `bbb/` directory is supported;
 moving individual files requires updating their imports. Registry generation and

@@ -43,8 +43,8 @@ portable data URLs. Pattern bundles include their shared example CSS.
 Their state and backend operations remain demonstrations.
 
 The CLI defaults to `https://ui.beepboopbit.com/r/`; explicit flags, environment,
-and saved project configuration can override it. The site and registry are live;
-npm publication of the CLI is still pending.
+and saved project configuration can override it. The site, source registry, and
+published npm installer are live.
 
 ## Gallery integration
 
@@ -56,9 +56,9 @@ JSON bundle. Guidance-only foundations retain example source without a bundle.
 
 ## Copying and updates
 
-After npm publication, use `npx @beepboopbit/ui@latest init`, `add`, or `list`
+Use `npx @beepboopbit/ui@latest init`, `add`, or `list`
 inside a consuming app, as described in [ADOPTION.md](ADOPTION.md). Maintainers can
-use the unpublished installer against a generated local registry:
+use a checkout of the installer against a generated local registry:
 
 ```sh
 npm ci

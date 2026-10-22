@@ -5,9 +5,8 @@ freely. Your app imports its own source; this package is only the installer.
 
 The npm package is `@beepboopbit/ui`, with the `bbb-ui`
 command. Its default source registry is `https://ui.beepboopbit.com/r/`.
-The site and registry are live. **The npm package is not published yet**; the
-`npx` commands below become available after publication. Until then, Gallery's
-**View code** offers source and complete bundle downloads for manual copying.
+The installer is published on npm. Gallery's **View code** also offers source and
+complete bundle downloads for manual copying.
 
 ## Add to your app
 
@@ -98,7 +97,7 @@ npm ci
 npm run build:registry
 npm run cli -- init --cwd ../my-app --registry ./registry-dist --dry-run
 npm run pack:cli
-npm exec --package=./.copy-consumer/beepboopbit-ui-0.1.1.tgz -- bbb-ui --help
+npm exec --package=./.copy-consumer/beepboopbit-ui-0.1.2.tgz -- bbb-ui --help
 ```
 
 The tarball filename follows this package's version. See

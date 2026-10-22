@@ -15,7 +15,7 @@ test('Gallery exposes actual source, dependent files, setup, and a complete down
   await expect(source).toContainText('.bbb-button')
   await expect(source).toContainText('var(--bbb-control-height)')
   await card.locator('summary', { hasText: 'Setup and dependencies' }).click()
-  await expect(card.getByRole('region', { name: 'Copy with the local CLI' })).toContainText('npm run cli -- add button')
+  await expect(card.getByRole('region', { name: 'Copy with the CLI' })).toContainText('npx @beepboopbit/ui@latest add button')
   await expect(card.getByRole('region', { name: 'Install dependencies' })).toContainText('react-aria-components')
   await expect(card.getByRole('region', { name: 'Required styles' })).toContainText('./bbb/foundations/styles.css')
   const [download] = await Promise.all([
@@ -65,7 +65,7 @@ for (const mode of ['light', 'dark']) {
       await page.keyboard.press('Enter')
       await expect(select).toBeFocused()
       await expect(page.getByRole('region', { name: 'Component source', exact: true })).toBeVisible()
-      await expect(page.getByRole('region', { name: 'Copy with the local CLI' })).toBeVisible()
+      await expect(page.getByRole('region', { name: 'Copy with the CLI' })).toBeVisible()
       if (test.info().project.name === 'chromium') await page.screenshot({ path: test.info().outputPath(`cli-setup-${mode}-${width}.png`), fullPage: true })
     }
   })

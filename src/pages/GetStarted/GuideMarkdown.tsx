@@ -29,7 +29,7 @@ const titleComponents: Components = {
   h1: ({ children }) => <PageHeader
     className="get-started__header"
     title={guideText(children)}
-    description="Copy components into your React app. Make the source your own."
+    description="Install from the live registry, set up your React app, and use your first component."
     actions={<Link href={adoptionURL} download="BBB-adoption.md">Download guide</Link>}
   />,
 }
@@ -44,7 +44,7 @@ const articleComponents: Components = {
     if (!isValidElement<{ children?: ReactNode; className?: string }>(code)) return <pre>{children}</pre>
     const language = code.props.className?.replace(/^language-/, '')
     return <CodeBlock code={guideText(code.props.children).replace(/\n$/, '')} language={language}
-      label={language === 'sh' ? 'Terminal commands' : 'React example'} />
+      label={language === 'sh' ? 'Terminal commands' : language === 'css' ? 'Stylesheet example' : 'React example'} />
   },
   a: ({ href, children }) => {
     const download = downloads[href ?? '']

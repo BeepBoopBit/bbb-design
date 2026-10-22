@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Publish the CLI through GitHub OIDC after verified Cloudflare deployment. Keep
+  the checked tarball intact, tolerate npm processing delays, and support
+  verification without another publish. Update onboarding and Gallery commands
+  for the live npm installer. Prepare source 0.2.3 and CLI 0.1.2 for the first
+  automated publication, preserving earlier frozen source releases.
+- Make Get started usable before npm publication: install the repository CLI,
+  fetch source from the deployed registry, verify stylesheet/provider setup, and
+  run a working first component and production build. Explain Gallery downloads
+  and common setup failures; keep future npm instructions separate. Prepare source
+  0.2.2 because the guide also ships inside downloadable patterns.
 - Make the README, onboarding guide, and installer README lead with the npm copy
   CLI inside the consuming app. Keep repository setup in maintainer guidance and
   state that npm publication is pending. Prepare source 0.2.1 and CLI 0.1.1 for

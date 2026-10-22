@@ -60,8 +60,8 @@ export function SourceBundleDetails({ itemId }: { itemId: string }) {
     </div>
     <details>
       <summary>Setup and dependencies</summary>
-      <p>From the bbb-design repository, initialize your app once, then add this source. The CLI is available locally while npm publication is being prepared.</p>
-      <CodeBlock code={`npm run build:registry\nnpm run cli -- init --cwd ../my-app --registry ./registry-dist\nnpm run cli -- add ${bundle.name} --cwd ../my-app`} language="sh" label="Copy with the local CLI" />
+      <p>Run these commands inside your React app. Initialize BBB once, then add components from the deployed registry.</p>
+      <CodeBlock code={`npx @beepboopbit/ui@latest init\nnpx @beepboopbit/ui@latest add ${bundle.name}`} language="sh" label="Copy with the CLI" />
       <p>{bundle.docs}</p>
       {bundle.dependencies.length > 0 && <CodeBlock code={`npm install ${bundle.dependencies.join(' ')}`} language="sh" label="Install dependencies" />}
       <CodeBlock code="import './bbb/foundations/styles.css'" language="tsx" label="Required styles" />
