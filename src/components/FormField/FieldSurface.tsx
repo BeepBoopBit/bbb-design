@@ -22,11 +22,11 @@ export function FieldSurface({ children, label, variant = 'filled', invalid, ref
         onClick={event => {
           if (
             event.target instanceof Element &&
-            event.target.closest('input, textarea, button, label, [contenteditable]')
+            event.target.closest('input, textarea, select, button, a, label, [contenteditable]')
           )
             return
           const control = event.currentTarget.querySelector<HTMLElement>(
-            'input:not([type="hidden"]):not(:disabled), textarea:not(:disabled), [role="spinbutton"][contenteditable="true"]:not([aria-disabled="true"])',
+            'input:not([type="hidden"]):not(:disabled), textarea:not(:disabled), select:not(:disabled), [role="spinbutton"][contenteditable="true"]:not([aria-disabled="true"])',
           )
           control?.focus()
         }}

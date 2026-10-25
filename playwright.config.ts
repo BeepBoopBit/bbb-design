@@ -11,8 +11,8 @@ export default defineConfig({
   timeout: process.env.CI ? 60_000 : 30_000,
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' }, testIgnore: ['**/visual.spec.ts', '**/hosting/**'] },
-    { name: 'firefox', use: { browserName: 'firefox' }, testMatch: ['**/completion.spec.ts', '**/calendar-slider.spec.ts', '**/brand-presets.spec.ts', '**/shell-redesign.spec.ts', '**/document-workspace.spec.ts', '**/utilities.spec.ts', '**/fields.spec.ts', '**/source-copy.spec.ts', '**/get-started.spec.ts', '**/site-presentation.spec.ts'] },
-    { name: 'webkit', use: { browserName: 'webkit' }, testMatch: ['**/completion.spec.ts', '**/calendar-slider.spec.ts', '**/brand-presets.spec.ts', '**/shell-redesign.spec.ts', '**/document-workspace.spec.ts', '**/utilities.spec.ts', '**/fields.spec.ts', '**/source-copy.spec.ts', '**/get-started.spec.ts', '**/site-presentation.spec.ts'] },
+    { name: 'firefox', use: { browserName: 'firefox' }, testMatch: ['**/completion.spec.ts', '**/calendar-slider.spec.ts', '**/brand-presets.spec.ts', '**/shell-redesign.spec.ts', '**/document-workspace.spec.ts', '**/utilities.spec.ts', '**/fields.spec.ts', '**/source-copy.spec.ts', '**/get-started.spec.ts', '**/site-presentation.spec.ts', '**/compositions.spec.ts', '**/library.spec.ts'] },
+    { name: 'webkit', use: { browserName: 'webkit' }, testMatch: ['**/completion.spec.ts', '**/calendar-slider.spec.ts', '**/brand-presets.spec.ts', '**/shell-redesign.spec.ts', '**/document-workspace.spec.ts', '**/utilities.spec.ts', '**/fields.spec.ts', '**/source-copy.spec.ts', '**/get-started.spec.ts', '**/site-presentation.spec.ts', '**/compositions.spec.ts', '**/library.spec.ts'] },
     { name: 'visual', use: { browserName: 'chromium' }, testMatch: '**/visual.spec.ts' },
   ],
   snapshotPathTemplate: '{testDir}/screenshots/{testFilePath}/{arg}-{projectName}-{platform}{ext}',

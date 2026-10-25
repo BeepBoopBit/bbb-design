@@ -10,6 +10,60 @@ a hidden native select for form submission and autofill.
 [React Aria documentation](https://react-aria.adobe.com/) describes the underlying
 selection and accessibility props exposed by the wrappers.
 
+## Grouped controls and bottom drawers
+
+Added in source 0.3.0. Each component has a dedicated `/components/<name>` page
+with working examples, installation, keyboard guidance, and an API reference.
+The CLI names are `button-group`, `toggle`, `toggle-group`, `input-group`,
+`collapsible`, and `drawer`.
+
+**ButtonGroup** accepts a required `label`, `orientation` (`horizontal` by default,
+or `vertical`), and native div attributes/ref. Compose shared Buttons or a
+DropdownMenu trigger directly inside it; use matching sizes and variants. Its
+children retain ordinary Tab order. Use Toolbar for arrow navigation. Button is
+re-exported from ButtonGroup and included in its source bundle. Install
+`dropdown-menu` too when composing a split button.
+
+**Toggle** accepts `isSelected` / `defaultSelected`, `onChange(boolean)`, `disabled`,
+`variant` (`ghost` or `secondary`), `size` (`sm` or `md`), `iconOnly`, and a button
+ref. It exposes pressed state and supports Enter/Space. Keep its label stable and
+provide `aria-label` for an icon-only toggle. Use Checkbox for form values; Toggle
+does not submit selection as form data.
+
+**ToggleGroup** accepts a required `label`, `selectionMode` (`multiple` by default,
+or `single`), `selectedKeys` / `defaultSelectedKeys`, `onSelectionChange(Set<Key>)`,
+`disallowEmptySelection`, `orientation`, and `disabled`. Compose Toggle children
+with unique `id` values; Toggle is re-exported and bundled. The group owns its
+children's selection. Multiple selection uses toolbar semantics; single
+selection uses radio semantics. Arrows navigate enabled options, following the
+locale and orientation. Optional single selection may clear the last choice.
+
+**InputGroup** shares FormField's `label`, `hideLabel`, `hint`, `error`, and
+`variant`. `startAddon` / `endAddon` place text or controls inline; `header` /
+`footer` place content inside the same field surface. Set `multiline` to render a
+textarea. Native control props and refs are forwarded to the corresponding input
+or textarea. Native validation, form submission/reset, and read-only states work
+as usual. Addon text does not become part of the accessible description: include
+important units in the label or hint. Give addon controls their own labels and
+disabled states. Extra buttons should only use `type="submit"` intentionally.
+
+**Collapsible** requires `label` and `children`. It accepts `open` / `defaultOpen`,
+`onOpenChange(boolean)`, `disabled`, `className`, and a root div ref. The default
+trigger includes a disclosure chevron. Supply a BBB Button as `trigger` for custom
+content; Collapsible assigns its trigger slot. Hidden contents stay mounted to
+preserve state, while leaving the tab order and accessibility tree. Use Accordion
+for a coordinated group of disclosures.
+
+**Drawer** uses Dialog's `trigger`, `title`, `description`, `open`, `onOpenChange`,
+`children`, `footer`, `closeLabel`, `className`, and `bodyClassName`. It opens from
+the bottom, fits its content, caps height to the viewport, and scrolls the body
+with persistent header/footer. Body and footer accept `(close) => ReactNode`.
+Focus is contained while open and returns to the trigger after dismissal. Escape,
+backdrop, and the visible close button dismiss it. Theme/locale context passes
+through the portal; motion preferences and safe-area padding are respected.
+This version does not provide swipe dismissal or snap points. Sheet continues to
+provide start/end placement.
+
 ## Actions and forms
 
 | Component  | Main props                                                                                                                                           | Behavior                                                                                                                                                                                                  |
@@ -250,6 +304,77 @@ in portals so Gallery cards do not clip them. React Aria measures their position
 and available space; authored widths, surfaces, shadows, and layers remain tokens.
 
 ## Navigation and disclosure
+
+**NavigationMenu** organizes website destinations with ordinary links and
+disclosure buttons. It accepts `label`, `items`, optional `currentId`,
+`openId` / `defaultOpenId`, `onOpenChange(id | null)`, and `className`.
+Use unique IDs across sections and links. A `NavigationLink` has `id`, `label`,
+`href`, and optional `description`, `target`, and `rel`. A `NavigationSection`
+has `id`, `label`, `groups: { label, links: NavigationLink[] }[]`, and optional
+`disabled`. Descriptions appear within sections; `currentId` marks a link with
+`aria-current="page"`. New-tab links get safe relationship attributes.
+
+One section opens at a time. Tab follows the native button/link order; Enter or
+Space toggles a section, and Arrow Down opens it and focuses its first link.
+Escape closes and restores focus to the trigger. Focus leaving the navigation,
+an outside pointer press, or following a link closes the panel. Links preserve
+normal URL and modifier-click behavior. Keep the container's overflow visible:
+the panel is positioned inside the nav, fits its width, and stacks groups when
+narrow. `--bbb-navigation-panel-max-height` caps its scrollable height.
+
+```tsx
+<NavigationMenu label="Main navigation" currentId="home" items={[
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'learn', label: 'Learn', groups: [
+    { label: 'Resources', links: [
+      { id: 'guide', label: 'Guide', href: '/guide', description: 'Start here.' },
+      { id: 'examples', label: 'Examples', href: '/examples' },
+    ] },
+  ] },
+]} />
+```
+
+**Separator** accepts `orientation` (`horizontal` by default or `vertical`),
+`decorative` (default false), and native div props/ref. A semantic separator
+exposes its orientation; decorative separators are hidden from assistive
+technology. Neither is focusable by default. Horizontal lines fill the available
+width; vertical lines stretch in a flex/grid row. Let the parent supply spacing.
+
+**HoverCard** accepts a focusable `trigger`, `title`, and `children`, plus optional
+`open` / `defaultOpen`, `onOpenChange`, `disabled`, `delay` (600ms), `closeDelay`
+(200ms), `placement` (React Aria Popover placement, default `bottom start`), and
+`className`. Its React Aria PreviewTrigger opens on hover, keyboard focus, or
+touch long press. The trigger must forward DOM props and its ref; native anchors,
+BBB Link, and BBB Button work. Tab can enter interactive preview content; Escape
+dismisses and returns focus. Pointer travel into the preview keeps it open.
+Theme, density, and locale follow the provider through the portal. `disabled`
+suppresses the preview while leaving its link usable. Keep essential information
+at the destination; use Popover when opening content is the primary action.
+
+```tsx
+<HoverCard title="About this project" trigger={<Link href="/project">Project</Link>}>
+  <p>A quick introduction before opening the full page.</p>
+  <Link href="/project">Open project</Link>
+</HoverCard>
+```
+
+**NativeSelect** combines `FieldProps` (`label`, `hideLabel`, `hint`, `error`,
+`variant`) with native select props and a select ref. Pass native `option` and
+`optgroup` children. All four field variants work, as do native disabled options,
+`name`, `required`, `multiple`, `size`, and form reset. `onChange` receives a DOM
+event: read `event.target.value`, or `selectedOptions` for multiple selection.
+Hints/errors are associated with the select; `error` adds `aria-invalid`.
+The browser owns the options UI and mobile picker. Use Select for rich option
+content and custom popup styling. A controlled value must be reset by the app.
+
+```tsx
+<NativeSelect label="Region" name="region" defaultValue="manila" required>
+  <optgroup label="Asia Pacific">
+    <option value="manila">Manila</option>
+    <option value="singapore">Singapore</option>
+  </optgroup>
+</NativeSelect>
+```
 
 **SidebarNavigation** accepts a required navigation `label`, `groups`, optional
 `currentId`, `compact` (default false), and optional `onNavigate(id)`. Groups have `id`, optional `label`, and

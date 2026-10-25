@@ -85,9 +85,9 @@ export function FileUpload({
       className={`bbb-upload ${className}`}
       data-disabled={disabled || undefined}
     >
-      <h4 id={id} className="bbb-upload__label">
+      <div id={id} className="bbb-upload__label">
         {label}
-      </h4>
+      </div>
       <div
         className="bbb-upload__dropzone"
         data-dragging={dragging || undefined}
@@ -163,6 +163,7 @@ export function FileUpload({
                       variant="ghost"
                       size="sm"
                       disabled={disabled}
+                      aria-label={`${t('retry')} ${item.file.name}`}
                       onPress={() => onRetry(item.id)}
                     >
                       {t('retry')}

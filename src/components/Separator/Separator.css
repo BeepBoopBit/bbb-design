@@ -1,0 +1,4 @@
+.bbb-separator { flex: none; align-self: stretch; border: 0; background: var(--bbb-color-border); }
+.bbb-separator[data-orientation='horizontal'] { width: 100%; height: var(--bbb-border-width); }
+.bbb-separator[data-orientation='vertical'] { width: var(--bbb-border-width); min-height: 1em; }
+@media (forced-colors: active) { .bbb-separator { background: CanvasText; forced-color-adjust: none; } }

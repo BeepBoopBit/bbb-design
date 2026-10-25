@@ -1,0 +1,5 @@
+.library-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--bbb-space-5); width: 100%; min-width: 0; max-width: var(--bbb-guide-content-width); }
+.library-preview > p, .library-preview p.preview-note { margin: 0; text-align: start; }
+.library-preview__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--bbb-space-3); }
+.library-preview--navigation { min-height: calc(var(--bbb-preview-height) + var(--bbb-space-16)); align-content: start; }
+.library-preview--hover { justify-items: center; }

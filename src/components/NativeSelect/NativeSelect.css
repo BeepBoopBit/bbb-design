@@ -1,0 +1,11 @@
+.bbb-native-select__control { position: relative; min-width: 0; }
+.bbb-native-select .bbb-field__surface { cursor: pointer; }
+.bbb-native-select select.bbb-input { appearance: none; padding-inline-end: calc(var(--bbb-icon-size) + var(--bbb-space-2)); cursor: pointer; text-overflow: ellipsis; }
+.bbb-native-select select option, .bbb-native-select select optgroup { color: var(--bbb-color-text); background: var(--bbb-color-surface); }
+.bbb-native-select__control > .bbb-icon { pointer-events: none; position: absolute; inset-inline-end: 0; top: 50%; transform: translateY(-50%); color: var(--bbb-color-text-secondary); }
+.bbb-native-select__control[data-listbox] select { padding-inline-end: 0; }
+.bbb-native-select__control[data-listbox] option { padding: var(--bbb-space-1) var(--bbb-space-2); }
+@media (forced-colors: active) {
+  .bbb-native-select select.bbb-input { appearance: auto; padding-inline-end: 0; }
+  .bbb-native-select__control > .bbb-icon { display: none; }
+}

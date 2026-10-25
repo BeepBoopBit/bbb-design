@@ -1,0 +1,43 @@
+.bbb-input-group__control { flex-wrap: wrap; }
+.bbb-input-group__control > input, .bbb-input-group__control > textarea {
+  flex: 1 1 6ch;
+  min-width: min(6ch, 100%);
+}
+/* Keep contextual text and independent addon actions readable when the field is disabled. */
+.bbb-input-group > .bbb-field__surface:has(input:disabled, textarea:disabled) { opacity: 1; }
+.bbb-input-group__control > input:disabled, .bbb-input-group__control > textarea:disabled { opacity: var(--bbb-opacity-disabled); }
+.bbb-input-group__addon {
+  display: flex;
+  align-items: center;
+  gap: var(--bbb-space-2);
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-sm);
+}
+.bbb-input-group__addon > select {
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--bbb-control-height-sm);
+  border: 0;
+  border-radius: var(--bbb-radius-sm);
+  padding: var(--bbb-space-1);
+  background: var(--bbb-color-surface-muted);
+  color: var(--bbb-color-text);
+  font: inherit;
+}
+.bbb-input-group__addon > select:focus-visible {
+  outline: var(--bbb-focus-width) solid var(--bbb-color-focus);
+  outline-offset: var(--bbb-focus-offset);
+}
+.bbb-input-group__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--bbb-space-2);
+  padding-block: var(--bbb-space-2);
+  color: var(--bbb-color-text-secondary);
+  font-size: var(--bbb-font-size-sm);
+}

@@ -9,6 +9,10 @@ for (const [page, title, description] of [
   ['gallery', 'Gallery', 'Explore BBB design foundations, editable React components, and complete interface patterns.'],
   ['getting-started', 'Get started', 'Set up BBB in your React app, add components, and make the source your own.'],
   ['components/button', 'Button', 'Use the BBB Button component: examples, installation, variants, accessibility, and API reference.'],
+  ...['button-group', 'toggle', 'toggle-group', 'input-group', 'collapsible', 'drawer', 'hover-card', 'navigation-menu', 'separator', 'native-select', 'select', 'dialog', 'table', 'calendar', 'file-upload'].map(id => {
+    const title = id[0].toUpperCase() + id.slice(1).replaceAll('-', ' ')
+    return [`components/${id}`, title, `Use the BBB ${title} component: examples, installation, accessibility, and API reference.`]
+  }),
 ]) {
   const target = resolve(projectRoot, `dist/${page}.html`)
   await mkdir(dirname(target), { recursive: true })

@@ -15,6 +15,11 @@ override contract and [foundations](../../docs/FOUNDATIONS.md) for verification.
 
 ## Wordmark
 
+The **bbb.** wordmark and the BeepBoopBit and BBB names identify the official
+project. See the [trademark policy](../../TRADEMARKS.md) for attribution, logo use,
+and independent product branding. The components, palette, styles, and tokens
+remain reusable under the MIT license.
+
 The BBB logo is the lowercase wordmark **bbb.** The letters use the primary text
 color (`--bbb-color-text`), and only the final period uses the accent color
 (`--bbb-color-accent`): Bit Ink with a Boop Ember dot in the default light palette.

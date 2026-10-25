@@ -1,0 +1,11 @@
+.bbb-toggle-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--bbb-space-1);
+  max-width: 100%;
+  padding: var(--bbb-space-1);
+  border: var(--bbb-border-width) solid var(--bbb-color-border);
+  border-radius: var(--bbb-radius-lg);
+  background: var(--bbb-color-surface);
+}
+.bbb-toggle-group[data-orientation='vertical'] { flex-direction: column; }

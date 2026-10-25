@@ -97,9 +97,20 @@ npm ci
 npm run build:registry
 npm run cli -- init --cwd ../my-app --registry ./registry-dist --dry-run
 npm run pack:cli
-npm exec --package=./.copy-consumer/beepboopbit-ui-0.1.2.tgz -- bbb-ui --help
+npm exec --package=./.copy-consumer/beepboopbit-ui-0.1.3.tgz -- bbb-ui --help
 ```
 
 The tarball filename follows this package's version. See
 [registry maintenance](https://github.com/BeepBoopBit/bbb-design/blob/main/docs/REGISTRY.md)
 for local source generation and verification.
+
+## License and trademarks
+
+The installer is available under the [MIT license](LICENSE). Copied source carries
+its own license notices; retain them when redistributing it.
+
+The BeepBoopBit and BBB names and the **bbb.** wordmark are covered separately by
+the [trademark policy](https://github.com/BeepBoopBit/bbb-design/blob/main/TRADEMARKS.md).
+Commercial code reuse and accurate attribution are welcome. Give independent
+products and forks their own branding; technical identifiers such as `bbb.json`
+and `--bbb-*` CSS variables may stay as they are.

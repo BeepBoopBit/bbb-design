@@ -5,6 +5,7 @@ import { galleryItems } from '../galleryItems'
 import type { GalleryCategory } from '../galleryItems'
 import { sitePath } from '../useGalleryLocation'
 import type { SitePage } from '../useGalleryLocation'
+import { isComponentPage } from '../../ComponentDocs/componentRoutes'
 
 const categories: { id: Exclude<GalleryCategory, 'all'>; label: string; icon: IconName }[] = [
   { id: 'foundations', label: 'Foundations', icon: 'layers' },
@@ -49,7 +50,7 @@ export function GalleryNavigation({
     <SidebarNavigation
       label={label}
       groups={groups}
-      currentId={page === 'getting-started' ? page : page === 'button' ? 'components' : page === 'home' ? undefined : category}
+      currentId={page === 'getting-started' ? page : isComponentPage(page) ? 'components' : page === 'home' ? undefined : category}
       compact={compact}
       onNavigate={id => {
         if (id === 'getting-started' || id === 'all') {

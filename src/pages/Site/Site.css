@@ -27,7 +27,7 @@
 .site-sidebar__heading > span { white-space: nowrap; }
 .site-shell[data-page='home'] > .gallery-workspace { margin-inline: 0; }
 .site-shell[data-page='home'] .gallery-main { max-width: var(--site-content-width); padding: 0 var(--bbb-page-gutter); }
-.site-shell[data-page='button'] .gallery-main { max-width: var(--site-content-width); }
+.site-shell:has(.component-docs) .gallery-main { max-width: var(--site-content-width); }
 .component-navigation { display: grid; gap: var(--bbb-space-half); padding-inline: var(--bbb-space-2); }
 .component-navigation p { margin: var(--bbb-space-6) var(--bbb-space-3) var(--bbb-space-2); font-size: var(--bbb-font-size-xs); color: var(--bbb-color-text-secondary); }
 .component-navigation a { padding: var(--bbb-space-2) var(--bbb-space-3); text-decoration: none; font-size: var(--bbb-font-size-md); color: var(--bbb-color-text-secondary); border-radius: var(--bbb-radius-sm); }

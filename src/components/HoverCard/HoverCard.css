@@ -1,0 +1,4 @@
+.bbb-hover-card { width: var(--bbb-overlay-width); padding: var(--bbb-space-5); overflow-wrap: anywhere; }
+.bbb-hover-card__title { margin: 0 0 var(--bbb-space-3); font-size: var(--bbb-font-size-base); font-weight: var(--bbb-font-weight-semibold); }
+.bbb-hover-card__content { display: grid; gap: var(--bbb-space-4); font-size: var(--bbb-font-size-sm); }
+.bbb-hover-card__content p { margin: 0; color: var(--bbb-color-text-secondary); }

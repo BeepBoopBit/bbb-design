@@ -1,3 +1,5 @@
+import { ButtonGroupPreview, TogglePreview, ToggleGroupPreview, InputGroupPreview, CollapsiblePreview, DrawerPreview } from './previews/CompositionPreviews'
+import { HoverCardPreview, NavigationMenuPreview, NativeSelectPreview, SeparatorPreview } from './previews/LibraryPreviews'
 import { FieldVariantsPreview, SearchFieldPreview } from './previews/FieldPreviews'
 import { ThemeSwitcherPreview, AppearanceSettingsPreview, AccountMenuPreview, WorkspaceSwitcherPreview, CopyButtonPreview, CodeBlockPreview, KeyboardShortcutPreview, LoadingIndicatorPreview, StatusIndicatorPreview, BannerPreview, BulkActionBarPreview, NotificationCenterPreview, SplitPanePreview, TreeViewPreview, ContextMenuPreview, MediaPreviewExample, CommandMenuPreview } from './previews/UtilityPreviews'
 import { ContentPreview, InternationalizationPreview, PasswordFieldPreview, VerificationCodePreview, DescriptionListPreview, ToolbarPreview, InlineEditPreview, CommandPalettePreview } from './previews/CompletionPreviews'
@@ -108,6 +110,56 @@ export type GalleryItem = {
 }
 
 export const galleryItems: GalleryItem[] = [
+  {
+    id: 'hover-card', name: 'Hover card', category: 'components',
+    description: 'A useful preview, just a moment away.', detail: 'Hover + focus + touch preview',
+    keywords: ['preview', 'popover', 'link', 'profile'], Preview: HoverCardPreview, source: 'HoverCardPreview',
+  },
+  {
+    id: 'navigation-menu', name: 'Navigation menu', category: 'components',
+    description: 'A clear path to everything your site offers.', detail: 'Grouped links + disclosures',
+    keywords: ['nav', 'site', 'dropdown', 'header', 'links'], Preview: NavigationMenuPreview, source: 'NavigationMenuPreview', wide: true,
+  },
+  {
+    id: 'separator', name: 'Separator', category: 'components',
+    description: 'Give related sections a little breathing room.', detail: 'Horizontal + vertical',
+    keywords: ['divider', 'line', 'border', 'layout'], Preview: SeparatorPreview, source: 'SeparatorPreview',
+  },
+  {
+    id: 'native-select', name: 'Native select', category: 'components',
+    description: 'A familiar browser picker, with a BBB field surface.', detail: 'Native forms + grouped options',
+    keywords: ['form', 'select', 'option', 'optgroup', 'mobile'], Preview: NativeSelectPreview, source: 'NativeSelectPreview',
+  },
+  {
+    id: 'button-group', name: 'Button group', category: 'components',
+    description: 'Related actions, comfortably together.', detail: 'Connected actions + split button',
+    keywords: ['actions', 'split', 'toolbar', 'connected'], Preview: ButtonGroupPreview, source: 'ButtonGroupPreview',
+  },
+  {
+    id: 'toggle', name: 'Toggle', category: 'components',
+    description: 'A button with a lasting on or off state.', detail: 'Pressed + disabled states',
+    keywords: ['pressed', 'selected', 'button', 'bookmark'], Preview: TogglePreview, source: 'TogglePreview',
+  },
+  {
+    id: 'toggle-group', name: 'Toggle group', category: 'components',
+    description: 'Choose one option, or keep several active.', detail: 'Single + multiple selection',
+    keywords: ['formatting', 'multiple', 'pressed', 'selection'], Preview: ToggleGroupPreview, source: 'ToggleGroupPreview',
+  },
+  {
+    id: 'input-group', name: 'Input group', category: 'components',
+    description: 'Useful context and actions, right beside your input.', detail: 'Addons + composer',
+    keywords: ['prefix', 'suffix', 'currency', 'composer', 'form', 'textarea'], Preview: InputGroupPreview, source: 'InputGroupPreview',
+  },
+  {
+    id: 'collapsible', name: 'Collapsible', category: 'components',
+    description: 'Keep extra options within easy reach.', detail: 'Standalone disclosure',
+    keywords: ['disclosure', 'expand', 'advanced', 'show more'], Preview: CollapsiblePreview, source: 'CollapsiblePreview',
+  },
+  {
+    id: 'drawer', name: 'Drawer', category: 'components',
+    description: 'A focused space that opens from the bottom.', detail: 'Bottom sheet + modal focus',
+    keywords: ['bottom', 'sheet', 'mobile', 'overlay', 'dialog'], Preview: DrawerPreview, source: 'DrawerPreview',
+  },
   {
     id: 'field-variants', name: 'Field styles', category: 'foundations',
     description: 'Choose the right amount of emphasis for each task.', detail: 'Filled · outlined · subtle · plain',

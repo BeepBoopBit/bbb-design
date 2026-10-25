@@ -1,0 +1,24 @@
+.bbb-modal-overlay--bottom {
+  align-items: flex-end;
+  justify-content: center;
+}
+.bbb-modal-overlay--bottom .bbb-modal--sheet {
+  width: min(100%, var(--bbb-dialog-width));
+  height: auto;
+  max-height: calc(100dvh - var(--bbb-space-6));
+  border-radius: var(--bbb-radius-xl) var(--bbb-radius-xl) 0 0;
+  animation-name: bbb-drawer-slide;
+}
+.bbb-modal-overlay--bottom .bbb-dialog--sheet { height: auto; max-height: calc(100dvh - var(--bbb-space-6)); }
+.bbb-modal-overlay--bottom .bbb-dialog__footer { padding-bottom: max(var(--bbb-space-4), env(safe-area-inset-bottom)); }
+.bbb-modal-overlay--bottom .bbb-dialog__body:last-child { padding-bottom: max(var(--bbb-space-6), env(safe-area-inset-bottom)); }
+@keyframes bbb-drawer-slide {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@media (max-width: 48rem) {
+  .bbb-modal-overlay--bottom .bbb-modal--sheet { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bbb-modal-overlay--bottom, .bbb-modal-overlay--bottom .bbb-modal--sheet { animation: none; }
+}

@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
 import { galleryItems } from './galleryItems'
 import type { GalleryCategory } from './galleryItems'
+import { componentPages, isComponentPage } from '../ComponentDocs/componentRoutes'
+import type { ComponentPage } from '../ComponentDocs/componentRoutes'
 
-export type SitePage = 'home' | 'gallery' | 'getting-started' | 'button'
-export const sitePath = (page: SitePage) => `${import.meta.env.BASE_URL}${page === 'home' ? '' : page === 'button' ? 'components/button' : page}`
-export const examplePath = (id: string) => id === 'button' ? sitePath('button') : `${sitePath('gallery')}?item=${encodeURIComponent(id)}`
+export type SitePage = 'home' | 'gallery' | 'getting-started' | ComponentPage
+export const sitePath = (page: SitePage) => `${import.meta.env.BASE_URL}${page === 'home' ? '' : isComponentPage(page) ? `components/${page}` : page}`
+export const examplePath = (id: string) => isComponentPage(id) ? sitePath(id) : `${sitePath('gallery')}?item=${encodeURIComponent(id)}`
 type GalleryLocation = { page: SitePage; category: GalleryCategory; query: string; item?: string }
 function readLocation(): GalleryLocation {
   const params = new URLSearchParams(window.location.search)
   const category = params.get('category')
   const item = params.get('item') ?? undefined
   const pathname = window.location.pathname.replace(/\/$/, '')
+  const componentPage = (Object.keys(componentPages) as ComponentPage[]).find(id => pathname === sitePath(id))
   const page: SitePage = pathname === sitePath('getting-started') ? 'getting-started'
-    : pathname === sitePath('button') ? 'button'
-    : pathname === sitePath('home').replace(/\/$/, '') && !params.has('item') && !params.has('category') && !params.has('q') ? 'home' : 'gallery'
+    : componentPage ?? (pathname === sitePath('home').replace(/\/$/, '') && !params.has('item') && !params.has('category') && !params.has('q') ? 'home' : 'gallery')
   return {
     page,
     category: category === 'foundations' || category === 'components' || category === 'patterns' ? category : 'all',

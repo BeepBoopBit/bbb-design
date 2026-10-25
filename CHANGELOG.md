@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+## 0.3.0 — 2026-10-26
+
+Source release `0.3.0`; installer `@beepboopbit/ui` version `0.1.3`.
+
+- Introduce the BBB homepage with interactive examples, brand previews, and direct
+  setup links. Share site navigation and catalog search across the homepage,
+  getting-started guide, component documentation, and Gallery.
+
+- Add HoverCard previews with hover, keyboard, and touch access; NavigationMenu
+  with grouped native links and disclosure controls; semantic/decorative
+  Separator; and NativeSelect with shared field styles and native form behavior.
+  Include gallery examples and source bundles. Add dedicated documentation for
+  these four components plus Select, Dialog, Table, Calendar, and FileUpload,
+  sharing the documentation layout with the composition controls. Make upload
+  labels independent of document heading depth and name retry actions by file.
+
+- Add ButtonGroup with split-action composition, Toggle and ToggleGroup,
+  InputGroup with inline addons and multiline action bars, standalone Collapsible,
+  and a bottom Drawer sharing Dialog focus and dismissal behavior. Include
+  interactive Gallery examples, dedicated documentation pages, and copyable
+  source bundles. The library now includes 80 component examples and 16 dedicated
+  component documentation pages.
+
+- Clarify the distinction between MIT-licensed code and BBB trademarks in the
+  source documentation and installer README. Publish the updated installer
+  documentation as CLI `0.1.3`.
+- Refresh reviewed visual baselines for the redesigned site and update catalog
+  search and tooltip checks to match its navigation and headings.
+
+## Earlier development notes
+
 - Publish the CLI through GitHub OIDC after verified Cloudflare deployment. Keep
   the checked tarball intact, tolerate npm processing delays, and support
   verification without another publish. Update onboarding and Gallery commands

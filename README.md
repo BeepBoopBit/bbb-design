@@ -67,8 +67,11 @@ The development server listens on `0.0.0.0` for access from other devices on you
 network. Open the URL printed by Vite. `/` introduces BBB with interactive examples,
 brand previews, and setup links. `/gallery` contains the full library, while
 `/getting-started` renders the setup guide from `docs/ADOPTION.md`.
-`/components/button` demonstrates focused component documentation with a live
-preview, installation, variants, accessibility guidance, and an API reference.
+Focused `/components/{id}` documentation covers `button`, `button-group`,
+`toggle`, `toggle-group`, `input-group`, `collapsible`, `drawer`, `hover-card`,
+`navigation-menu`, `separator`, `native-select`, `select`, `dialog`, `table`,
+`calendar`, and `file-upload`. Each page includes live previews, installation,
+states, keyboard guidance, and API references.
 The shared header links to Docs, Components, Patterns, and Foundations, and searches
 the full catalog. Existing Gallery query links continue to work.
 
@@ -82,7 +85,7 @@ BBB keeps its own visual language while aiming for the finish and familiarity of
 a first-party Apple app. The homepage demonstrates the system through interactive
 examples, brand customization, and a direct path to copying the source.
 
-Gallery includes fifteen foundations, seventy component examples, and twelve
+Gallery includes fifteen foundations, eighty component examples, and twelve
 patterns. Components cover actions, forms, identity, content, menus, navigation,
 and feedback. Patterns combine them into complete experiences: Profile form,
 Settings, Collection, Workspace shell, and Sidebar dropdowns.
@@ -276,3 +279,9 @@ Scaffolded with Vite's official [React + TypeScript template](https://vite.dev/g
 
 BBB source is available under the [MIT license](LICENSE). Keep the included
 [Lucide notice](LICENSE-LUCIDE) when copying source.
+
+The BeepBoopBit and BBB names and the **bbb.** wordmark are covered separately by
+the [trademark policy](TRADEMARKS.md). You may reuse the code, styles, and tokens,
+including commercially, and refer accurately to the project. Use your own branding
+for independent products and forks so they are distinguishable from official BBB
+releases.

@@ -45,7 +45,7 @@ export function ModalDialog({
   className = '',
   bodyClassName = '',
   closeLabel,
-}: DialogProps & { placement?: 'center' | 'start' | 'end' }) {
+}: DialogProps & { placement?: 'center' | 'start' | 'end' | 'bottom' }) {
   const { t } = useMessages()
   const theme = useThemeAttributes()
   const descriptionId = useId()

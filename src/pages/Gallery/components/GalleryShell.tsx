@@ -16,6 +16,7 @@ import { SiteNavigation, followSiteLink } from '../../Site/SiteNavigation'
 import { SiteSearch } from '../../Site/SiteSearch'
 import { ComponentNavigation } from '../../Site/ComponentNavigation'
 import { repositoryUrl } from '../../Site/SiteFooter'
+import { isComponentPage } from '../../ComponentDocs/componentRoutes'
 
 type GalleryShellProps = {
   page: SitePage
@@ -120,12 +121,12 @@ export function GalleryShell({ isolated, children, appearance, category, onCateg
             <div ref={menuContentRef} className="gallery-navigation-sheet">
               <a className="site-mobile-home" href={sitePath('home')} onClick={event => followSiteLink(event, () => navigatePage('home'))}>Home</a>
               <SiteNavigation page={page} category={category} onPageNavigate={navigatePage} onCategoryChange={category => navigate(category, true)} />
-              <GalleryNavigation
+              {isComponentPage(page) ? <ComponentNavigation currentId={page} /> : <GalleryNavigation
                 page={page} onPageNavigate={navigatePage}
                 label="Gallery mobile navigation"
                 category={category}
                 onNavigate={navigate}
-              />
+              />}
               <HelpResources getStartedHref={sitePath('getting-started')} />
             </div>
           </Sheet>
@@ -146,7 +147,7 @@ export function GalleryShell({ isolated, children, appearance, category, onCateg
       >
         <div className="site-sidebar__heading"><span className="bbb-sidebar-reveal" data-hidden={collapsed || undefined}>Explore BBB</span>
           <SidebarToggle collapsed={collapsed} controls={sidebarId} onToggle={toggle} buttonRef={buttonRef} /></div>
-        {page === 'button' && !collapsed ? <ComponentNavigation /> : <GalleryNavigation page={page} onPageNavigate={navigatePage} label="Main navigation" category={category} onNavigate={navigate} compact={collapsed} />}
+        {isComponentPage(page) && !collapsed ? <ComponentNavigation currentId={page} /> : <GalleryNavigation page={page} onPageNavigate={navigatePage} label="Main navigation" category={category} onNavigate={navigate} compact={collapsed} />}
         <div className="gallery-sidebar__help"><HelpResources compact={collapsed} getStartedHref={sitePath('getting-started')} /></div>
       </aside>
       <div className="gallery-workspace">

@@ -67,6 +67,13 @@ Existing CSS selectors remain available to stylesheet consumers.
 
 ## Typography and logos
 
+Reuse and customize the components, tokens, and brand preset code under the MIT
+license. Give your product its own name and logo. The BeepBoopBit and BBB names and
+the **bbb.** wordmark are covered separately by the
+[trademark policy](https://github.com/BeepBoopBit/bbb-design/blob/main/TRADEMARKS.md);
+accurate attribution and compatibility references are welcome, and technical
+identifiers such as `--bbb-*` may stay as they are.
+
 `--bbb-font-sans` is the interface/body face. `--bbb-font-heading` and
 `--bbb-font-wordmark` default to it and can change independently. `--bbb-font-serif`
 provides a local serif fallback family; custom fonts must be loaded by the consuming

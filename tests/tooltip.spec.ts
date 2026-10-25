@@ -16,7 +16,7 @@ for (const brand of ['bbb', 'studio']) {
         await page.goto('/gallery?item=tooltip')
         // Packed consumers can load the theme baseline after component styles.
         await page.addStyleTag({ content: '.bbb-theme { color: var(--bbb-color-text); }' })
-        await page.getByRole('heading', { name: 'Tooltip', exact: true }).hover()
+        await page.getByRole('heading', { name: 'Tooltip', level: 1, exact: true }).hover()
         await trigger.hover()
         const tooltip = page.getByRole('tooltip', { name: 'Add another item', exact: true })
         await expect(tooltip).toBeVisible()

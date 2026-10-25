@@ -1,5 +1,118 @@
 /** Small adoption examples; full working Gallery source is available alongside them. */
 export const usageExamples: Record<string, string> = {
+  HoverCardPreview: `import { HoverCard } from './bbb/components/HoverCard/HoverCard'
+
+<HoverCard title="About the team" trigger={<a href="/team">Meet our team</a>}>
+  <p>The people behind your next project.</p>
+  <a href="/team">Visit the team page</a>
+</HoverCard>`,
+  NavigationMenuPreview: `import { NavigationMenu } from './bbb/components/NavigationMenu/NavigationMenu'
+
+<NavigationMenu label="Main navigation" currentId="home" items={[
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'resources', label: 'Resources', groups: [
+    { label: 'Learn', links: [
+      { id: 'guide', label: 'Guide', href: '/guide', description: 'Start your first project.' },
+      { id: 'examples', label: 'Examples', href: '/examples', description: 'Find a useful starting point.' },
+    ] },
+  ] },
+]} />`,
+  SeparatorPreview: `import { Separator } from './bbb/components/Separator/Separator'
+
+<Separator />
+
+<div style={{ display: 'flex', gap: '1rem' }}>
+  <span>Details</span>
+  <Separator orientation="vertical" decorative />
+  <span>Activity</span>
+</div>`,
+  NativeSelectPreview: `import { NativeSelect } from './bbb/components/NativeSelect/NativeSelect'
+
+<NativeSelect label="Region" name="region" defaultValue="manila" required>
+  <optgroup label="Asia Pacific">
+    <option value="manila">Manila</option>
+    <option value="singapore">Singapore</option>
+  </optgroup>
+  <optgroup label="Europe">
+    <option value="amsterdam">Amsterdam</option>
+  </optgroup>
+</NativeSelect>`,
+  CalendarPreview: `import { CalendarDate } from '@internationalized/date'
+import { Calendar } from './bbb/components/Calendar/Calendar'
+
+<Calendar aria-label="Choose a day"
+  defaultValue={new CalendarDate(2026, 9, 22)}
+  onChange={date => console.log(date.toString())} />`,
+  TablePreview: `import { useState } from 'react'
+import { Table } from './bbb/components/Table/Table'
+import type { TableSort } from './bbb/components/Table/Table'
+
+const people = [{ id: 'alex', name: 'Alex Morgan' }, { id: 'jamie', name: 'Jamie Chen' }]
+
+export function PeopleTable() {
+  const [sort, setSort] = useState<TableSort>({ column: 'name', direction: 'ascending' })
+  const [selectedIds, onChange] = useState(new Set<string>())
+  const rows = [...people].sort((a, b) => a.name.localeCompare(b.name)
+    * (sort.direction === 'ascending' ? 1 : -1))
+  return <Table label="Team members" rows={rows}
+    getRowId={row => row.id} getRowLabel={row => row.name}
+    columns={[{ id: 'name', label: 'Name', rowHeader: true, sortable: true, renderCell: row => row.name }]}
+    sort={sort} onSortChange={setSort}
+    selection={{ selectedIds, onChange }} />
+}`,
+  FileUploadPreview: `import { useState } from 'react'
+import { FileUpload } from './bbb/components/FileUpload/FileUpload'
+import type { UploadFile } from './bbb/components/FileUpload/FileUpload'
+
+export function Attachments() {
+  const [files, setFiles] = useState<UploadFile[]>([])
+  return <FileUpload label="Attachments" files={files}
+    accept="image/*,.pdf" maxSize={5_000_000}
+    hint="Images or PDFs, up to 5 MB each."
+    onAdd={incoming => setFiles(previous => [...previous, ...incoming.map(file => ({
+      id: crypto.randomUUID(), file, status: 'ready' as const,
+    }))])}
+    onRemove={id => setFiles(previous => previous.filter(file => file.id !== id))} />
+  // Send files with your app's upload service and update each item's status and progress.
+}`,
+  ButtonGroupPreview: `import { ButtonGroup, Button } from './bbb/components/ButtonGroup/ButtonGroup'
+
+<ButtonGroup label="History actions">
+  <Button variant="secondary" onPress={() => console.log('Undo')}>Undo</Button>
+  <Button variant="secondary" disabled>Redo</Button>
+</ButtonGroup>`,
+  TogglePreview: `import { Toggle } from './bbb/components/Toggle/Toggle'
+
+<Toggle defaultSelected onChange={selected => console.log(selected)}>
+  Save for later
+</Toggle>`,
+  ToggleGroupPreview: `import { ToggleGroup, Toggle } from './bbb/components/ToggleGroup/ToggleGroup'
+
+<ToggleGroup label="Text formatting" selectionMode="multiple" defaultSelectedKeys={['bold']}>
+  <Toggle id="bold">Bold</Toggle>
+  <Toggle id="italic">Italic</Toggle>
+  <Toggle id="underline">Underline</Toggle>
+</ToggleGroup>`,
+  InputGroupPreview: `import { InputGroup } from './bbb/components/InputGroup/InputGroup'
+
+<InputGroup label="Website" name="website" defaultValue="studio"
+  startAddon={<span>https://</span>} endAddon={<span>.bbb.app</span>}
+  hint="Choose a short, memorable address." />
+
+<InputGroup multiline label="Team update" rows={3} maxLength={240}
+  footer={<span>Up to 240 characters</span>} />`,
+  CollapsiblePreview: `import { Collapsible } from './bbb/components/Collapsible/Collapsible'
+
+<Collapsible label="Advanced options">
+  <p>Additional settings go here.</p>
+</Collapsible>`,
+  DrawerPreview: `import { Drawer } from './bbb/components/Drawer/Drawer'
+import { Button } from './bbb/components/Button/Button'
+
+<Drawer title="Quick actions" trigger={<Button>Open actions</Button>}
+  footer={close => <Button onPress={close}>Done</Button>}>
+  <p>Keep a focused task close at hand.</p>
+</Drawer>`,
   ButtonPreview: `import { Button } from './bbb/components/Button/Button'
 
 <Button onPress={() => console.log('Saved')}>Save changes</Button>

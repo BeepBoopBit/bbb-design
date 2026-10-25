@@ -1,0 +1,5 @@
+.composition-preview { display: flex; flex-direction: column; align-items: center; gap: var(--bbb-space-4); width: 100%; min-width: 0; }
+.composition-preview--fields { display: grid; gap: var(--bbb-space-4); width: 100%; min-width: 0; }
+.composition-preview__underline { text-decoration: underline; }
+.composition-preview__sample { font-size: var(--bbb-font-size-lg); margin: var(--bbb-space-3) 0; text-align: center; }
+.composition-preview .preview-note { margin: 0; }

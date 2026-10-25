@@ -10,8 +10,8 @@ The current repository versions are:
 
 | Artifact | Identity | Version |
 | --- | --- | --- |
-| Editable source | Root `bbb-design` package version | `0.2.3` |
-| Installer | npm `@beepboopbit/ui`, command `bbb-ui` | `0.1.2` |
+| Editable source | Root `bbb-design` package version | `0.3.0` |
+| Installer | npm `@beepboopbit/ui`, command `bbb-ui` | `0.1.3` |
 
 Source 0.2.0 remains frozen and available on the live registry. Repository changes
 reach the site only after a release tag is pushed and its workflow succeeds.
@@ -63,7 +63,7 @@ compares both built registries with all verified snapshots, and inspects the act
 npm pack file list and executable mode. It writes ignored review files:
 
 - `.release/site/`: the complete static site, including all `/r/` versions.
-- `.release/beepboopbit-ui-0.1.2.tgz`: the installer tarball (version follows its package).
+- `.release/beepboopbit-ui-0.1.3.tgz`: the installer tarball (version follows its package).
 - `.release/source/`: frozen snapshots and checksum locks for archival.
 - `.release/wrangler.jsonc`: the checked Cloudflare deployment configuration.
 - `.release/release.json`: identities, npm integrity, and SHA-256 hashes of all
@@ -160,8 +160,8 @@ to deploy, push it to `main`, then create and push a version tag pointing to it:
 
 ```sh
 git push origin main
-git tag -a v0.2.3 -m "Release source 0.2.3 and CLI 0.1.2"
-git push origin v0.2.3
+git tag -a v0.3.0 -m "Release source 0.3.0 and CLI 0.1.3"
+git push origin v0.3.0
 ```
 
 Creating a local tag does not deploy. Pushing the tag starts all release checks

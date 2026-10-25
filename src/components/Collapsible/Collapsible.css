@@ -1,0 +1,8 @@
+.bbb-collapsible { min-width: 0; width: 100%; }
+.bbb-collapsible__trigger { gap: var(--bbb-space-3); padding-inline: var(--bbb-space-2); color: var(--bbb-color-text); }
+.bbb-collapsible__trigger .bbb-icon { transition: transform var(--bbb-duration-fast) var(--bbb-easing-standard); }
+.bbb-collapsible[data-expanded] > .bbb-collapsible__trigger .bbb-icon { transform: rotate(var(--bbb-half-turn)); }
+.bbb-collapsible__content { padding-block: var(--bbb-space-4); }
+@media (prefers-reduced-motion: reduce) {
+  .bbb-collapsible__trigger .bbb-icon { transition: none; }
+}

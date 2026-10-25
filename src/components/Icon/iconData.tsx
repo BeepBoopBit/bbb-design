@@ -8,7 +8,7 @@ import {
   Pencil, Phone, PhoneOff, Plug, Plus, RefreshCw, RotateCcwClock, Rows2, Scan,
   ScrollText, Search, Send, Settings, Sparkles, SquareCheck, SquareTerminal,
   Sun, Trash2, TriangleAlert, UserRound, Volume2, VolumeX, Wallet, Workflow,
-  Wrench, X, Minus,
+  Wrench, X, Minus, Bookmark, SlidersHorizontal,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -19,6 +19,7 @@ export const lucideIcons = {
   'arrow-right': ArrowRight,
   'arrow-up': ArrowUp,
   bell: Bell,
+  bookmark: Bookmark,
   bot: Bot,
   box: Box,
   calendar: Calendar,
@@ -75,6 +76,7 @@ export const lucideIcons = {
   search: Search,
   send: Send,
   settings: Settings,
+  'sliders-horizontal': SlidersHorizontal,
   sparkles: Sparkles,
   'square-check': SquareCheck,
   'square-terminal': SquareTerminal,

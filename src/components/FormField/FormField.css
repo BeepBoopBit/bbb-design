@@ -87,12 +87,12 @@
   --bbb-field-fill: var(--bbb-color-surface);
   box-shadow: inset 0 0 0 var(--bbb-border-width) var(--bbb-field-stroke);
 }
-.bbb-field__surface:has(input:disabled, textarea:disabled, .bbb-select__trigger:disabled) {
+.bbb-field__surface:has(input:disabled, textarea:disabled, select:disabled, .bbb-select__trigger:disabled) {
   opacity: var(--bbb-opacity-disabled);
   cursor: not-allowed;
 }
 .bbb-field__surface[data-invalid='true'],
-.bbb-field__surface:has(:is(input, textarea)[aria-invalid='true'], :user-invalid),
+.bbb-field__surface:has(:is(input, textarea, select)[aria-invalid='true'], :user-invalid),
 .bbb-select[data-invalid] .bbb-field__surface,
 .bbb-combobox[data-invalid] .bbb-field__surface {
   --bbb-field-stroke: var(--bbb-color-danger);
@@ -162,7 +162,7 @@
     outline-offset: calc(-1 * var(--bbb-focus-width));
   }
   .bbb-field__surface[data-invalid='true'],
-  .bbb-field__surface:has(:is(input, textarea)[aria-invalid='true'], :user-invalid),
+  .bbb-field__surface:has(:is(input, textarea, select)[aria-invalid='true'], :user-invalid),
   .bbb-select[data-invalid] .bbb-field__surface,
   .bbb-combobox[data-invalid] .bbb-field__surface {
     --bbb-field-stroke: var(--bbb-color-danger);

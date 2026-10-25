@@ -28,7 +28,7 @@ test('site navigation and search connect the introduction, gallery, and document
   await page.locator('.home-hero').getByRole('link', { name: 'Explore components' }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Components')
   await page.getByRole('searchbox', { name: 'Search gallery' }).fill('button')
-  await page.getByRole('link', { name: 'View documentation' }).click()
+  await page.getByRole('article', { name: 'Button', exact: true }).getByRole('link', { name: 'View documentation' }).click()
   await expect(page).toHaveURL(/\/components\/button$/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button')
   await page.locator('.site-header').getByRole('link', { name: 'BBB home' }).click()

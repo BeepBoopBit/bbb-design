@@ -5,6 +5,7 @@ import { CopyButton } from '../../../components/CopyButton/CopyButton'
 import { Link } from '../../../components/Link/Link'
 import { ExampleDetails } from './ExampleDetails'
 import { examplePath } from '../useGalleryLocation'
+import { isComponentPage } from '../../ComponentDocs/componentRoutes'
 
 export function GalleryCard({ item }: { item: GalleryItem }) {
   const { Preview } = item
@@ -26,7 +27,7 @@ export function GalleryCard({ item }: { item: GalleryItem }) {
         <div className="gallery-card__example-tools">
           <Button variant="ghost" size="sm" aria-expanded={showCode} aria-controls={detailsId} onPress={() => setShowCode(value => !value)}>{showCode ? 'Hide code' : 'View code'}</Button>
           <Button variant="ghost" size="sm" onPress={() => setGeneration(value => value + 1)}>Reset example</Button>
-          <Link href={href}>{item.id === 'button' ? 'View documentation' : 'Open example'}</Link>
+          <Link href={href}>{isComponentPage(item.id) ? 'View documentation' : 'Open example'}</Link>
           <CopyButton text={new URL(href, window.location.origin).href} label="Copy example link" iconOnly />
         </div>
         <span className="bbb-visually-hidden" aria-live="polite">{generation ? `${item.name} example reset.` : ''}</span>

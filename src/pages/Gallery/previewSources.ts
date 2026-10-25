@@ -1,5 +1,15 @@
 // Load real example source only when requested. Keep keys stable in production.
 export const previewSources: Record<string, () => Promise<{ default: string }>> = {
+  HoverCardPreview: () => import('./previews/LibraryPreviews.tsx?raw'),
+  NavigationMenuPreview: () => import('./previews/LibraryPreviews.tsx?raw'),
+  NativeSelectPreview: () => import('./previews/LibraryPreviews.tsx?raw'),
+  SeparatorPreview: () => import('./previews/LibraryPreviews.tsx?raw'),
+  ButtonGroupPreview: () => import('./previews/CompositionPreviews.tsx?raw'),
+  TogglePreview: () => import('./previews/CompositionPreviews.tsx?raw'),
+  ToggleGroupPreview: () => import('./previews/CompositionPreviews.tsx?raw'),
+  InputGroupPreview: () => import('./previews/CompositionPreviews.tsx?raw'),
+  CollapsiblePreview: () => import('./previews/CompositionPreviews.tsx?raw'),
+  DrawerPreview: () => import('./previews/CompositionPreviews.tsx?raw'),
   FieldVariantsPreview: () => import('./previews/FieldPreviews.tsx?raw'),
   SearchFieldPreview: () => import('./previews/FieldPreviews.tsx?raw'),
   ThemeSwitcherPreview: () => import('./previews/UtilityPreviews.tsx?raw'),

@@ -207,6 +207,7 @@
   --bbb-textarea-height: 5rem;
   --bbb-overlay-width: 20rem;
   --bbb-menu-min-width: 12rem;
+  --bbb-navigation-panel-max-height: min(30rem, 60dvh);
   --bbb-dialog-width: 30rem;
   --bbb-sheet-width: 26rem;
   --bbb-page-header-copy-width: 16rem;

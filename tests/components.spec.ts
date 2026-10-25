@@ -55,7 +55,9 @@ test('catalog search, filters, empty state, and reset focus', async ({ page }) =
   await expect(page.getByRole('article')).toHaveCount(galleryCounts.components)
   const search = page.getByRole('searchbox', { name: 'Search gallery' })
   await search.fill('dropdown')
-  await expect(page.getByRole('article')).toHaveCount(4)
+  await expect(page.getByRole('article').getByRole('heading', { level: 3 })).toHaveText([
+    'Navigation menu', 'Multi-select', 'Select', 'Combobox', 'Dropdown menu',
+  ])
   await search.fill('nothing-matches-this')
   await expect(page.getByText('No matches this time.')).toBeVisible()
   await page.getByRole('button', { name: 'Reset filters' }).click()
@@ -397,9 +399,9 @@ test('select supports keyboard choices, disabled options, focus return, and form
 test('field focus uses one edge and preserves validation color without moving the layout', async ({
   page,
 }) => {
-  const field = page.getByRole('textbox', { name: 'Project name', exact: true })
+  const field = page.getByRole('article', { name: 'Text field', exact: true }).getByRole('textbox', { name: 'Project name', exact: true })
   await field.scrollIntoViewIfNeeded()
-  const control = page.locator('.bbb-field__surface').filter({ has: field })
+  const control = field.locator('..').locator('..')
   const initial = await control.boundingBox()
   await field.fill('')
   await page.keyboard.press('Tab')

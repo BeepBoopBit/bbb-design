@@ -1,0 +1,8 @@
+.bbb-toggle[data-selected], .bbb-toggle[data-selected]:hover:not(:disabled) {
+  color: var(--bbb-color-supporting);
+  background: var(--bbb-color-supporting-subtle);
+  border-color: var(--bbb-color-supporting);
+}
+@media (forced-colors: active) {
+  .bbb-toggle[data-selected] { border-color: Highlight; color: Highlight; }
+}
