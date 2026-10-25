@@ -178,13 +178,17 @@ test('optional single selection can clear and enlarged input groups keep an edit
   await expect(center).not.toBeChecked()
   await page.setViewportSize({ width: 320, height: 900 })
   await page.goto('/components/input-group')
+  const inputs = page.locator('.bbb-input-group__control > input')
+  // Documentation and its preview load separately; do not measure an empty page.
+  await expect(inputs).toHaveCount(6)
   await page.evaluate(() => { document.documentElement.style.fontSize = '200%' })
-  for (const input of await page.locator('.bbb-input-group__control > input').all()) {
-    const size = await input.evaluate(el => ({ width: el.getBoundingClientRect().width, font: parseFloat(getComputedStyle(el).fontSize) }))
-    expect(size.width).toBeGreaterThanOrEqual(size.font * 2)
+  for (const input of await inputs.all()) {
+    await expect.poll(() => input.evaluate(el => el.getBoundingClientRect().width - parseFloat(getComputedStyle(el).fontSize) * 2)).toBeGreaterThanOrEqual(0)
   }
-  await page.getByRole('textbox', { name: 'Project address', exact: true }).first().fill('readable')
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  const address = page.getByRole('region', { name: 'Input group preview', exact: true }).getByRole('textbox', { name: 'Project address', exact: true })
+  await address.fill('readable')
+  await expect(address).toHaveValue('readable')
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0)
 })
 
 for (const id of ['button-group', 'toggle', 'toggle-group', 'input-group', 'collapsible', 'drawer']) {
