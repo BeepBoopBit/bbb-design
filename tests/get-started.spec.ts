@@ -93,10 +93,10 @@ test('section bookmarks survive reloads and remain below the sticky header', asy
 test('mobile navigation reaches the guide, dismisses by keyboard, and survives resizing', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 1000 })
   await page.goto('/gallery?item=button')
-  const trigger = page.getByRole('button', { name: 'Open gallery navigation', exact: true })
+  const trigger = page.getByRole('button', { name: 'Open navigation', exact: true })
   await trigger.focus()
   await page.keyboard.press('Enter')
-  const sheet = page.getByRole('dialog', { name: 'Gallery navigation', exact: true })
+  const sheet = page.getByRole('dialog', { name: 'Browse BBB', exact: true })
   await sheet.getByRole('link', { name: 'Get started', exact: true }).focus()
   await page.keyboard.press('Enter')
   await expect(sheet).not.toBeVisible()

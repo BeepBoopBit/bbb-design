@@ -3,7 +3,7 @@
 Editable React components, design foundations, and patterns for BBB products.
 Copy the source into your app, customize it, and own the files.
 
-[Explore Gallery](https://ui.beepboopbit.com) ·
+[Explore Gallery](https://ui.beepboopbit.com/gallery) ·
 [Get started](https://ui.beepboopbit.com/getting-started)
 
 ## Add to your app
@@ -64,8 +64,13 @@ npm run dev
 ```
 
 The development server listens on `0.0.0.0` for access from other devices on your
-network. Open the URL printed by Vite. Both `/` and `/gallery` display Gallery;
+network. Open the URL printed by Vite. `/` introduces BBB with interactive examples,
+brand previews, and setup links. `/gallery` contains the full library, while
 `/getting-started` renders the setup guide from `docs/ADOPTION.md`.
+`/components/button` demonstrates focused component documentation with a live
+preview, installation, variants, accessibility guidance, and an API reference.
+The shared header links to Docs, Components, Patterns, and Foundations, and searches
+the full catalog. Existing Gallery query links continue to work.
 
 Use the single sun/moon icon button for a quick mode change, or **Appearance** to
 switch BBB/Studio, light/dark/system mode, and comfortable/compact density. Themes
@@ -74,8 +79,8 @@ demonstrates both brands and exports CSS; Theme accessibility checks live color 
 Our design principle is **Apple-quality craft**: clean, modern interfaces with
 clear hierarchy, generous space, quiet surfaces, and careful interaction details.
 BBB keeps its own visual language while aiming for the finish and familiarity of
-a first-party Apple app. Gallery makes this standard visible through three
-principles: clarity comes first, space to breathe, and care in every detail.
+a first-party Apple app. The homepage demonstrates the system through interactive
+examples, brand customization, and a direct path to copying the source.
 
 Gallery includes fifteen foundations, seventy component examples, and twelve
 patterns. Components cover actions, forms, identity, content, menus, navigation,
@@ -176,7 +181,7 @@ mid-animation. Reduced motion makes both transitions instant. The current view
 and desktop collapse preference survive switches to the mobile layout.
 
 The Gallery page uses the same SidebarNavigation, SidebarToggle, and Sheet as
-this pattern. Collapse the sidebar beside the BBB title to keep navigating by
+this pattern. Collapse the sidebar beside “Explore BBB” to keep navigating by
 icon, then use the same toggle to show labels again. On narrow screens, the menu opens the library in a navigation
 sheet. Category links stay in sync with the filters, preserve search, and move
 focus to the content after selection.
@@ -202,7 +207,9 @@ To add a gallery entry:
 
 Use **Patterns** for complete compositions. Keep their copy, layout, and sample
 state in Gallery, and their reusable
-controls in `src/components/`. Pages are actual app routes; Gallery is currently the app's page.
+controls in `src/components/`. Site pages live under `src/pages/`; add an explicit
+HTML entrypoint in `scripts/finish-site.mjs` for each new route so production deep
+links work without turning missing assets into successful app responses.
 
 ## Checks and production build
 

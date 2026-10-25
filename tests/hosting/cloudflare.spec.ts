@@ -17,7 +17,7 @@ test('Cloudflare serves the exact candidate, all registry versions, cache header
 })
 
 test('HTML aliases preserve deep links and normalize trailing slashes without redirecting registry JSON', async ({ request }) => {
-  for (const path of ['/gallery', '/getting-started']) {
+  for (const path of ['/gallery', '/getting-started', '/components/button']) {
     const response = await request.get(path)
     expect(response.status()).toBe(200)
     expect(response.headers()['content-type']).toContain('text/html')

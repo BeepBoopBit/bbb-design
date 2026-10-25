@@ -6,7 +6,7 @@ async function example(page: Page, query: string, name = query) {
   return page.getByRole('article', { name, exact: true })
 }
 async function choose(page: Page, label: string, option: string) {
-  const scope = label === 'Color mode' || label === 'Interface density' ? page.getByRole('dialog', { name: 'Gallery appearance' }) : page
+  const scope = label === 'Color mode' || label === 'Interface density' ? page.getByRole('dialog', { name: 'Site appearance' }) : page
   await scope.getByRole('button', { name: new RegExp(label) }).click()
   await page.getByRole('option', { name: option, exact: true }).click()
 }

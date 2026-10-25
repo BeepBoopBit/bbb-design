@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
 for (const mode of ['light', 'dark']) test(`document pattern supports library navigation, account access, and mobile focus in ${mode}`, async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/gallery')
   await page.evaluate(mode => localStorage.setItem('bbb-gallery-appearance', JSON.stringify({ brand: 'bbb', mode, density: 'comfortable' })), mode)
   await page.reload()
   await page.getByRole('searchbox', { name: 'Search gallery' }).fill('Workspace shell')

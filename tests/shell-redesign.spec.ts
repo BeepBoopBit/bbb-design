@@ -23,7 +23,7 @@ test('Gallery destinations, legacy links, help downloads, and header focus work'
 })
 
 test('workspace account switches context, edits settings, and restores a demo session', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/gallery')
   await page.getByRole('searchbox', { name: 'Search gallery' }).fill('Workspace shell')
   const shell = page.getByRole('group', { name: 'Workspace shell example', exact: true })
   const account = shell.getByRole('button', { name: 'Studio, account and workspaces', exact: true })
@@ -49,7 +49,7 @@ test('workspace account switches context, edits settings, and restores a demo se
 })
 
 for (const mode of ['light', 'dark']) test(`shell reflows at narrow widths with enlarged text in ${mode}`, async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/gallery')
   await page.evaluate(mode => localStorage.setItem('bbb-gallery-appearance', JSON.stringify({ brand: 'bbb', mode, density: 'comfortable' })), mode)
   await page.reload()
   await page.getByRole('searchbox', { name: 'Search gallery' }).fill('Workspace shell')
@@ -65,8 +65,8 @@ for (const mode of ['light', 'dark']) test(`shell reflows at narrow widths with 
     expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([])
     await page.keyboard.press('Escape')
     await expect(account).toBeFocused()
-    await page.getByRole('button', { name: 'Open gallery navigation', exact: true }).click()
-    const sheet = page.getByRole('dialog', { name: 'Gallery navigation', exact: true })
+    await page.getByRole('button', { name: 'Open navigation', exact: true }).click()
+    const sheet = page.getByRole('dialog', { name: 'Browse BBB', exact: true })
     await sheet.getByRole('button', { name: 'Help & resources' }).click()
     await expect(page.getByRole('link', { name: 'Component documentation' })).toBeVisible()
     await page.keyboard.press('Escape')
@@ -78,7 +78,7 @@ for (const mode of ['light', 'dark']) test(`shell reflows at narrow widths with 
 })
 
 test('branded shell is the default and document layout preserves each workspace state', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/gallery')
   await expect(page.locator('.gallery-desktop-toggle .bbb-brand-logo')).toBeVisible()
   await page.getByRole('searchbox', { name: 'Search gallery' }).fill('Workspace shell')
   const shell = page.getByRole('group', { name: 'Workspace shell example', exact: true })

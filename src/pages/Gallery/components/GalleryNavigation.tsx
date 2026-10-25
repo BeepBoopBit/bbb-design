@@ -49,7 +49,7 @@ export function GalleryNavigation({
     <SidebarNavigation
       label={label}
       groups={groups}
-      currentId={page === 'getting-started' ? page : category}
+      currentId={page === 'getting-started' ? page : page === 'button' ? 'components' : page === 'home' ? undefined : category}
       compact={compact}
       onNavigate={id => {
         if (id === 'getting-started' || id === 'all') {

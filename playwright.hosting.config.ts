@@ -4,7 +4,7 @@ const port = Number(process.env.BBB_HOSTING_TEST_PORT ?? 5190)
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: ['**/hosting/*.spec.ts', '**/get-started.spec.ts', '**/source-copy.spec.ts'],
+  testMatch: ['**/hosting/*.spec.ts', '**/get-started.spec.ts', '**/source-copy.spec.ts', '**/site-presentation.spec.ts'],
   workers: 2,
   projects: [{ name: 'hosting', use: { browserName: 'chromium' } }],
   outputDir: 'test-results/hosting',

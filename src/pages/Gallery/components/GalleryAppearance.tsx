@@ -17,7 +17,7 @@ export function GalleryAppearance({
     <div className="gallery-appearance-controls">
     <ThemeSwitcher value={value.mode} onChange={mode => onChange({ ...value, mode })} />
     <Popover
-      title="Gallery appearance"
+      title="Site appearance"
       trigger={
         <Button variant="secondary" size="sm" iconOnly aria-label="Appearance">
           <Icon name="settings" />
@@ -37,7 +37,7 @@ export function GalleryAppearance({
         <AppearanceSettings mode={value.mode} onModeChange={mode => onChange({ ...value, mode })}
           density={value.density} onDensityChange={density => onChange({ ...value, density })} />
         <p className="preview-note">
-          Applies to the whole Gallery, including open overlays. Saved on this device.
+          Applies across the site, including open overlays. Saved on this device.
         </p>
       </div>
     </Popover>

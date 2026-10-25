@@ -1136,8 +1136,8 @@ test('Gallery icon rail preserves navigation, category sync, search, and mobile 
 }) => {
   const navigation = page.getByRole('navigation', { name: 'Main navigation', exact: true })
   const topbar = page.locator('.gallery-topbar')
-  const collapse = topbar.getByRole('button', { name: 'Collapse sidebar', exact: true })
-  const expand = topbar.getByRole('button', { name: 'Expand sidebar', exact: true })
+  const collapse = page.locator('.gallery-sidebar').getByRole('button', { name: 'Collapse sidebar', exact: true })
+  const expand = page.locator('.gallery-sidebar').getByRole('button', { name: 'Expand sidebar', exact: true })
   const main = page.getByRole('main')
   const filters = page.getByRole('group', { name: 'Filter gallery', exact: true })
   const search = page.getByRole('searchbox', { name: 'Search gallery' })
@@ -1157,10 +1157,6 @@ test('Gallery icon rail preserves navigation, category sync, search, and mobile 
   await expect(expand).toHaveAttribute('aria-expanded', 'false')
   await expect(navigation).toBeVisible()
   await expect.poll(async () => (await workspace.boundingBox())!.width).toBeGreaterThan(previousWidth)
-  await page.keyboard.press('Tab')
-  await expect(topbar.getByRole('button', { name: /Color mode:/ })).toBeFocused()
-  await page.keyboard.press('Tab')
-  await expect(topbar.getByRole('button', { name: 'Appearance', exact: true })).toBeFocused()
   await page.keyboard.press('Tab')
   await expect(navigation.getByRole('link', { name: 'Get started', exact: true })).toBeFocused()
   await expect(page.getByRole('tooltip', { name: 'Get started', exact: true })).toBeVisible()
@@ -1189,9 +1185,9 @@ test('Gallery icon rail preserves navigation, category sync, search, and mobile 
   await collapse.click()
   await page.setViewportSize({ width: 390, height: 844 })
   await expect(expand).not.toBeVisible()
-  const menu = topbar.getByRole('button', { name: 'Open gallery navigation' })
+  const menu = topbar.getByRole('button', { name: 'Open navigation' })
   await menu.click()
-  const sheet = page.getByRole('dialog', { name: 'Gallery navigation', exact: true })
+  const sheet = page.getByRole('dialog', { name: 'Browse BBB', exact: true })
   await expect(sheet.getByRole('link', { name: `Components ${galleryCounts.components}` })).toHaveAttribute('aria-current', 'page')
   await page.keyboard.press('Escape')
   await expect(sheet).not.toBeVisible()
@@ -1218,9 +1214,9 @@ test('Gallery navigation fits narrow screens with enlarged text', async ({ page 
   await page.evaluate(() => { document.documentElement.style.fontSize = '200%' })
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 844 })
-    const menu = page.getByRole('button', { name: 'Open gallery navigation' })
+    const menu = page.getByRole('button', { name: 'Open navigation' })
     await menu.click()
-    const sheet = page.getByRole('dialog', { name: 'Gallery navigation', exact: true })
+    const sheet = page.getByRole('dialog', { name: 'Browse BBB', exact: true })
     expect(await sheet.evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true)
     const wrappedLabels = await sheet.locator('.bbb-sidebar-navigation__label').evaluateAll(labels =>
       labels.filter(label => {
@@ -1250,7 +1246,7 @@ test('sidebar expansion keeps icons and text geometry stable through reveals and
   })
   for (const selector of ['.gallery-sidebar', '.workspace-shell:not(:has([data-dropdown])) .workspace-shell__sidebar', '.workspace-shell:has([data-dropdown]) .workspace-shell__sidebar']) {
     const sidebar = page.locator(selector)
-    const toggle = selector === '.gallery-sidebar' ? page.locator('.gallery-topbar .bbb-sidebar-toggle') : sidebar.locator('xpath=ancestor::*[contains(@class, "workspace-shell") and not(contains(@class, "__"))]').locator('.bbb-sidebar-toggle')
+    const toggle = selector === '.gallery-sidebar' ? page.locator('.gallery-sidebar .bbb-sidebar-toggle') : sidebar.locator('xpath=ancestor::*[contains(@class, "workspace-shell") and not(contains(@class, "__"))]').locator('.bbb-sidebar-toggle')
     const originalLink = await sidebar.getByRole('link').filter({ has: page.locator('svg') }).first().elementHandle()
     const inspectFrame = (progress: number) => sidebar.evaluate((element, fraction) => {
       const layout = element.closest('.workspace-shell') ?? element
@@ -1319,8 +1315,8 @@ test('sidebar expansion keeps icons and text geometry stable through reveals and
   })
   await page.emulateMedia({ reducedMotion: 'reduce' })
   const sidebar = page.locator('.gallery-sidebar')
-  await page.locator('.gallery-topbar').getByRole('button', { name: 'Collapse sidebar' }).click()
+  await page.locator('.gallery-sidebar').getByRole('button', { name: 'Collapse sidebar' }).click()
   await expect(sidebar.locator('.bbb-sidebar-navigation__copy').first()).toHaveCSS('opacity', '0')
-  await page.locator('.gallery-topbar').getByRole('button', { name: 'Expand sidebar' }).click()
+  await page.locator('.gallery-sidebar').getByRole('button', { name: 'Expand sidebar' }).click()
   await expect(sidebar.locator('.bbb-sidebar-navigation__copy').first()).toHaveCSS('opacity', '1')
 })

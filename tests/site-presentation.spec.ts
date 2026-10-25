@@ -1,0 +1,110 @@
+import { expect, test } from '@playwright/test'
+import AxeBuilder from '@axe-core/playwright'
+
+test('the homepage demonstrates editable, interactive BBB interfaces', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Thoughtful interfaces.')
+  await expect(page.locator('.gallery-sidebar')).toBeHidden()
+  await page.getByText('Make something your own', { exact: true }).click()
+  await expect(page.getByRole('status').filter({ hasText: '2 of 3 complete' })).toBeVisible()
+  await page.getByRole('button', { name: 'Add a task' }).click()
+  const dialog = page.getByRole('dialog', { name: 'Add a small step' })
+  await dialog.getByRole('textbox', { name: 'Task name' }).fill('Build with BBB')
+  await dialog.getByRole('button', { name: 'Add task', exact: true }).click()
+  await expect(page.getByRole('checkbox', { name: 'Build with BBB' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Add a task' })).toBeFocused()
+  await page.getByRole('textbox', { name: 'Full name' }).fill('Jordan Lee')
+  await page.getByRole('button', { name: 'Save changes', exact: true }).click()
+  await expect(page.getByRole('status').filter({ hasText: 'Profile updated in this preview.' })).toBeVisible()
+  await page.getByRole('switch', { name: 'Weekly digest' }).check()
+  await expect(page.getByRole('switch', { name: 'Weekly digest' })).toBeChecked()
+  await page.getByRole('radiogroup', { name: 'Preview a brand' }).getByText('Studio · cool & precise', { exact: true }).click()
+  await expect(page.locator('.home-brand-preview')).toHaveAttribute('data-bbb-brand', 'studio')
+  await expect(page.locator('#root > [data-bbb-theme]')).toHaveAttribute('data-bbb-brand', 'bbb')
+})
+
+test('site navigation and search connect the introduction, gallery, and documentation', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('.home-hero').getByRole('link', { name: 'Explore components' }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Components')
+  await page.getByRole('searchbox', { name: 'Search gallery' }).fill('button')
+  await page.getByRole('link', { name: 'View documentation' }).click()
+  await expect(page).toHaveURL(/\/components\/button$/)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Button')
+  await page.locator('.site-header').getByRole('link', { name: 'BBB home' }).click()
+  await expect(page).toHaveURL(/\/$/)
+  await page.getByRole('button', { name: 'Search documentation', exact: true }).click()
+  const search = page.getByRole('dialog', { name: 'Search BBB' })
+  await search.getByRole('searchbox').fill('button')
+  await search.getByRole('menuitem', { name: 'Button', exact: true }).click()
+  await expect(page).toHaveURL(/\/components\/button$/)
+  await page.goBack()
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Thoughtful interfaces.')
+  await page.goto('/gallery?q=button')
+  await page.getByRole('navigation', { name: 'Site navigation' }).getByRole('link', { name: 'Patterns', exact: true }).click()
+  await expect(page.getByRole('searchbox', { name: 'Search gallery' })).toHaveValue('')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Patterns')
+})
+
+test('Button documentation supports keyboard previews, copy, source downloads, and section bookmarks', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async (text: string) => {
+      (window as unknown as { copiedText: string }).copiedText = text
+    } } })
+  })
+  await page.goto('/components/button')
+  await page.getByRole('button', { name: 'Continue', exact: true }).focus()
+  await page.keyboard.press('Space')
+  await expect(page.getByRole('status').filter({ hasText: 'You’re ready for the next step.' })).toBeVisible()
+  await page.getByRole('tab', { name: 'Code', exact: true }).click()
+  await expect(page.getByRole('region', { name: 'Button preview code' })).toContainText('onPress')
+  const install = page.locator('.bbb-code-block').filter({ has: page.getByRole('region', { name: 'Install Button', exact: true }) })
+  await install.getByRole('button', { name: 'Copy', exact: true }).click()
+  expect(await page.evaluate(() => (window as unknown as { copiedText: string }).copiedText)).toBe('npx @beepboopbit/ui@latest add button')
+  await page.getByText('Manual installation and source', { exact: true }).click()
+  const [download] = await Promise.all([
+    page.waitForEvent('download'), page.getByRole('link', { name: 'Download source bundle' }).click(),
+  ])
+  expect(download.suggestedFilename()).toMatch(/^bbb-button-.*\.json$/)
+  await page.goto('/components/button#accessibility')
+  const heading = page.getByRole('heading', { name: 'Accessibility', exact: true })
+  await expect(heading).toBeFocused()
+  await expect(heading).toBeInViewport()
+  await page.reload()
+  await expect(heading).toBeInViewport()
+  expect((await heading.boundingBox())!.y).toBeGreaterThanOrEqual((await page.locator('.site-header').boundingBox())!.height)
+})
+
+test('mobile navigation dismisses correctly and theme preferences persist between pages', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.emulateMedia({ colorScheme: 'light' })
+  await page.goto('/')
+  await page.locator('.gallery-appearance-controls').getByRole('button', { name: /Color mode/ }).click()
+  const mode = await page.locator('#root > [data-bbb-theme]').getAttribute('data-bbb-mode')
+  const trigger = page.getByRole('button', { name: 'Open navigation', exact: true })
+  await trigger.click()
+  await page.keyboard.press('Escape')
+  await expect(trigger).toBeFocused()
+  await trigger.click()
+  await page.getByRole('dialog', { name: 'Browse BBB', exact: true }).getByRole('link', { name: 'Docs', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Get started')
+  await expect(page.getByRole('main')).toBeFocused()
+  await page.reload()
+  await expect(page.locator('#root > [data-bbb-theme]')).toHaveAttribute('data-bbb-mode', mode!)
+})
+
+for (const mode of ['light', 'dark'] as const) test(`new pages reflow and remain accessible in ${mode}`, async ({ page }) => {
+  test.setTimeout(60000)
+  await page.addInitScript(mode => localStorage.setItem('bbb-gallery-appearance', JSON.stringify({ mode, brand: 'bbb', density: 'comfortable' })), mode)
+  for (const route of ['/', '/components/button']) {
+    await page.goto(route)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({ width, height: 1000 })
+      await page.evaluate(width => { document.documentElement.style.fontSize = width === 320 ? '200%' : '' }, width)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1)
+    }
+    expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([])
+    await page.screenshot({ path: test.info().outputPath(`${route === '/' ? 'home' : 'button'}-${mode}-mobile.png`) })
+  }
+})

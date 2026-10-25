@@ -4,8 +4,6 @@ import { Button } from '../../components/Button/Button'
 import { FilterGroup } from '../../components/FilterGroup/FilterGroup'
 import { EmptyState } from '../../components/EmptyState/EmptyState'
 import { SearchField } from '../../components/SearchField/SearchField'
-import { GalleryHeader } from './components/GalleryHeader'
-import { DesignPrinciples } from './components/DesignPrinciples'
 import { GallerySection } from './components/GallerySection'
 import { galleryItems } from './galleryItems'
 import type { GalleryCategory } from './galleryItems'
@@ -73,9 +71,11 @@ export function Gallery({ location }: { location: GalleryLocationState }) {
   return (
     <>
       {isolatedItem && <Button variant="ghost" onPress={resetFilters}>Back to full Gallery</Button>}
-      <GalleryHeader count={galleryItems.length} />
-      <DesignPrinciples />
-      <div className="gallery-toolbar">
+      <header className="gallery-header">
+        <div><h1>{isolatedItem ? galleryItems.find(item => item.id === isolatedItem)?.name : category === 'all' ? 'Gallery' : category[0].toUpperCase() + category.slice(1)}</h1>
+          <p>{isolatedItem ? 'Try the example, explore its source, and make it your own.' : category === 'components' ? 'Thoughtful defaults. Real interactions. Source you can make your own.' : category === 'patterns' ? 'Shared components, composed into complete experiences.' : category === 'foundations' ? 'The choices behind the system: color, type, spacing, and interaction.' : `Explore ${galleryItems.length} foundations, components, and patterns.`}</p></div>
+      </header>
+      {!isolatedItem && <div className="gallery-toolbar">
         <FilterGroup
           label="Filter gallery"
           value={category}
@@ -90,7 +90,7 @@ export function Gallery({ location }: { location: GalleryLocationState }) {
           value={query}
           onChange={setQuery}
         />
-      </div>
+      </div>}
       <p className="bbb-visually-hidden" role="status">
         {matches.length} {matches.length === 1 ? 'item' : 'items'} shown
         {search ? ` for “${query.trim()}”` : ''}.

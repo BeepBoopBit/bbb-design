@@ -8,11 +8,14 @@ import { SidebarToggle } from '../../../components/SidebarNavigation/SidebarTogg
 import { useSidebarToggle } from '../../../components/SidebarNavigation/useSidebarToggle'
 import type { GalleryCategory } from '../galleryItems'
 import { GalleryNavigation } from './GalleryNavigation'
-import { ShellIdentity } from './ShellIdentity'
 import { BrandLogo } from '../../../components/BrandLogo/BrandLogo'
 import { bbbBrand } from '../../../foundations/brands'
 import type { SitePage } from '../useGalleryLocation'
 import { sitePath } from '../useGalleryLocation'
+import { SiteNavigation, followSiteLink } from '../../Site/SiteNavigation'
+import { SiteSearch } from '../../Site/SiteSearch'
+import { ComponentNavigation } from '../../Site/ComponentNavigation'
+import { repositoryUrl } from '../../Site/SiteFooter'
 
 type GalleryShellProps = {
   page: SitePage
@@ -21,7 +24,7 @@ type GalleryShellProps = {
   appearance?: ReactNode
   children: ReactNode
   category: GalleryCategory
-  onCategoryChange: (category: GalleryCategory) => void
+  onCategoryChange: (category: GalleryCategory, clearSearch?: boolean) => void
 }
 
 export function GalleryShell({ isolated, children, appearance, category, onCategoryChange, page, onPageNavigate }: GalleryShellProps) {
@@ -79,9 +82,9 @@ export function GalleryShell({ isolated, children, appearance, category, onCateg
     }
   }
 
-  function navigate(next: GalleryCategory) {
+  function navigate(next: GalleryCategory, clearSearch = false) {
     pendingFocus.current = 'content'
-    onCategoryChange(next)
+    onCategoryChange(next, clearSearch)
     setMenuOpen(false)
     if (next === category && !menuOpen) {
       mainRef.current?.focus()
@@ -90,32 +93,33 @@ export function GalleryShell({ isolated, children, appearance, category, onCateg
   }
 
   return (
-    <div ref={shellRef} className="gallery-shell" data-sidebar-collapsed={collapsed || undefined}>
+    <div ref={shellRef} className="gallery-shell site-shell" data-page={page} data-sidebar-collapsed={collapsed || undefined}>
       <a className="gallery-skip-link" href="#main-content">
         Skip to content
       </a>
-      <header ref={headerRef} className="gallery-topbar">
+      <header ref={headerRef} className="gallery-topbar site-header">
         <div className="gallery-desktop-toggle">
-          <ShellIdentity collapsed={collapsed} brand={bbbBrand}>
-            <SidebarToggle collapsed={collapsed} controls={sidebarId} onToggle={toggle} buttonRef={buttonRef} />
-          </ShellIdentity>
+          <a className="site-logo" href={sitePath('home')} aria-label="BBB home"
+            onClick={event => followSiteLink(event, () => navigatePage('home'))}><BrandLogo brand={bbbBrand} decorative /></a>
         </div>
         <div className="gallery-mobile-menu">
           <Sheet
             side="start"
-            title="Gallery navigation"
+            title="Browse BBB"
             open={menuOpen}
             onOpenChange={open => {
               if (!open && !pendingFocus.current) pendingFocus.current = 'menu'
               setMenuOpen(open)
             }}
             trigger={
-              <Button ref={menuRef} variant="ghost" iconOnly aria-label="Open gallery navigation">
+              <Button ref={menuRef} variant="ghost" iconOnly aria-label="Open navigation">
                 <Icon name="menu" />
               </Button>
             }
           >
             <div ref={menuContentRef} className="gallery-navigation-sheet">
+              <a className="site-mobile-home" href={sitePath('home')} onClick={event => followSiteLink(event, () => navigatePage('home'))}>Home</a>
+              <SiteNavigation page={page} category={category} onPageNavigate={navigatePage} onCategoryChange={category => navigate(category, true)} />
               <GalleryNavigation
                 page={page} onPageNavigate={navigatePage}
                 label="Gallery mobile navigation"
@@ -126,14 +130,23 @@ export function GalleryShell({ isolated, children, appearance, category, onCateg
             </div>
           </Sheet>
         </div>
-        <span className="gallery-topbar__location"><span className="gallery-topbar__app-name">{page === 'getting-started' ? 'Get started' : 'Gallery'}</span><span className="gallery-topbar__mobile-brand"><BrandLogo brand={bbbBrand} /></span></span>
-        {appearance}
+        <a className="site-logo site-logo--mobile" href={sitePath('home')} aria-label="BBB home"
+          onClick={event => followSiteLink(event, () => navigatePage('home'))}><BrandLogo brand={bbbBrand} decorative /></a>
+        <div className="site-header__navigation"><SiteNavigation page={page} category={category} onPageNavigate={navigatePage} onCategoryChange={category => navigate(category, true)} /></div>
+        <div className="site-header__tools">
+          <SiteSearch />
+          <a href={repositoryUrl} className="site-github" aria-label="BBB on GitHub">GitHub</a>
+          {appearance}
+        </div>
       </header>
       <aside
         id={sidebarId}
-        className="gallery-sidebar"
+        className="gallery-sidebar site-sidebar"
+        hidden={page === 'home'}
       >
-        <GalleryNavigation page={page} onPageNavigate={navigatePage} label="Main navigation" category={category} onNavigate={navigate} compact={collapsed} />
+        <div className="site-sidebar__heading"><span className="bbb-sidebar-reveal" data-hidden={collapsed || undefined}>Explore BBB</span>
+          <SidebarToggle collapsed={collapsed} controls={sidebarId} onToggle={toggle} buttonRef={buttonRef} /></div>
+        {page === 'button' && !collapsed ? <ComponentNavigation /> : <GalleryNavigation page={page} onPageNavigate={navigatePage} label="Main navigation" category={category} onNavigate={navigate} compact={collapsed} />}
         <div className="gallery-sidebar__help"><HelpResources compact={collapsed} getStartedHref={sitePath('getting-started')} /></div>
       </aside>
       <div className="gallery-workspace">
